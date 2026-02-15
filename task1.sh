@@ -35,13 +35,16 @@ log_event() {
 # Function that prints the menu screen
 print_menu() {
     echo "University Data Centre Main Menu:"
-    echo "1: Process Monitoring and Management"
-    echo "2: Disk Inspection and Log Archiving"
-    echo "3: Logging System"
-    echo "4: Exit"
+    echo "=============================================================="
+    echo "1: CPU and Memory Usage"
+    echo "2: Top Ten Memory Consuming Processes"
+    echo "=============================================================="
+    echo "20: Disk Inspection and Log Archiving"
+    echo "30: Logging System"
+    echo "40: Exit"
 }
 
-process_monitoring() {
+cpu_memory_usage() {
     # Get the current usage of CPU and memory
     cpuUsage=$(top -bn1 | awk '/Cpu/ { print $2}')
     memUsage=$(free -m | awk '/Mem/{print $3}')
@@ -49,6 +52,12 @@ process_monitoring() {
     # Print the usage
     echo "CPU Usage: $cpuUsage%"
     echo "Memory Usage: $memUsage MB"
+}
+
+top_ten_memory_processes() {
+    # Generates a list of all active processes, then sorts them by the highest CPU usage first
+    # Only the top 10 processes with the highest memory usage are listed, along with the header
+    ps aux --sort=-%cpu | head -n 11
 }
 
 disk_inspection() {
@@ -73,10 +82,11 @@ print_menu
 # Reads in an input from the user
 read -r -p "Please type in a valid number and hit Enter to select a choice: " choice
 case "$choice" in 
-1) process_monitoring;;
-2) disk_inspection;;
-3) logging_system;;
-4) exit;;
+1) cpu_memory_usage;;
+2) top_ten_memory_processes;;
+20) disk_inspection;;
+30) logging_system;;
+40) exit;;
 # If none of the above numbers were inputted, output an error messafe
 *) echo "Error: Invalid choice";;
 esac
