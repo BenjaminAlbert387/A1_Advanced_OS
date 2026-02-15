@@ -36,20 +36,22 @@ log_event() {
 print_menu() {
     echo "University Data Centre Main Menu:"
     echo "=============================================================="
-    echo "1: CPU and Memory Usage"
-    echo "2: Top Ten Memory Consuming Processes"
+    echo "1: Show CPU and Memory Usage"
+    echo "2: Show Top Ten Memory Consuming Processes"
+    echo "3: Terminate A Selected Process"
     echo "=============================================================="
     echo "20: Disk Inspection and Log Archiving"
     echo "30: Logging System"
     echo "40: Exit"
 }
 
+# Function that outputs the current CPU and memory usage
 cpu_memory_usage() {
-    # Get the current usage of CPU and memory
+    # Gets the current usage of CPU and memory
     cpuUsage=$(top -bn1 | awk '/Cpu/ { print $2}')
     memUsage=$(free -m | awk '/Mem/{print $3}')
     
-    # Print the usage
+    # Prints the usage to the user
     echo "CPU Usage: $cpuUsage%"
     echo "Memory Usage: $memUsage MB"
 }
@@ -58,6 +60,10 @@ top_ten_memory_processes() {
     # Generates a list of all active processes, then sorts them by the highest CPU usage first
     # Only the top 10 processes with the highest memory usage are listed, along with the header
     ps aux --sort=-%cpu | head -n 11
+}
+
+terminate_process() {
+
 }
 
 disk_inspection() {
@@ -84,6 +90,7 @@ read -r -p "Please type in a valid number and hit Enter to select a choice: " ch
 case "$choice" in 
 1) cpu_memory_usage;;
 2) top_ten_memory_processes;;
+3) terminate_process;;
 20) disk_inspection;;
 30) logging_system;;
 40) exit;;
