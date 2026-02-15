@@ -63,7 +63,13 @@ top_ten_memory_processes() {
 }
 
 terminate_process() {
+    echo "=============================================================="
+    echo "Currently Running Processes:"
+    ps aux
+    echo "=============================================================="
 
+    # Asks the user for PID
+    read -rp "Enter the PID of the process you want to terminate: " pid
 }
 
 disk_inspection() {
