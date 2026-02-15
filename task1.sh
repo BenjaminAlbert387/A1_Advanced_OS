@@ -14,7 +14,14 @@ cd "$BASE_DIR" || {
 # Output working directory 
 echo "Now working in: $(pwd)"
 
-# Initialise files
+# Initialisation
+
+# Create a backup of the directory
 BACKUP_DIR="$BASE_DIR/Backup"
+
+# Create a log file in the base directory
 LOG_FILE="$BASE_DIR/backup_log.txt"
+
+# Constant that limits the backup_log.txt file to 50MB
 WARNING_LIMIT_MB=50
+
