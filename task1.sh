@@ -34,6 +34,7 @@ log_event() {
 
 # Function that prints the menu screen
 print_menu() {
+    echo "=============================================================="
     echo "University Data Centre Main Menu:"
     echo "=============================================================="
     echo "1: Show CPU and Memory Usage"
@@ -41,24 +42,29 @@ print_menu() {
     echo "3: Terminate A Selected Process"
     echo "=============================================================="
     echo "4: Disk Inspection"
+    echo "5: Create ArchiveLogs Directory"
+    echo "=============================================================="
     echo "30: Logging System"
     echo "40: Exit"
 }
 
 # Function that outputs the current CPU and memory usage
 cpu_memory_usage() {
+
     # Gets the current usage of CPU and memory
     cpuUsage=$(top -bn1 | awk '/Cpu/ { print $2}')
     memUsage=$(free -m | awk '/Mem/{print $3}')
     
-    # Prints the usage to the user
+    # Outputs the usage to the user
     echo "CPU Usage: $cpuUsage%"
     echo "Memory Usage: $memUsage MB"
+
+    log_event "Checked CPU and Memory usage"
 }
 
 top_ten_memory_processes() {
     # Generates a list of all active processes, then sorts them by the highest CPU usage first
-    # Only the top 10 processes with the highest memory usage are listed, along with the header
+    # Only the top 10 processes with the highest memory usage are outputted, along with the header
     ps aux --sort=-%cpu | head -n 11
 }
 
@@ -119,6 +125,10 @@ disk_inspection() {
     echo "=============================================================="
 }
 
+create_archive_logs_directory() {
+
+}
+
 logging_system() {
     echo "Not done yet"
 }
@@ -141,6 +151,7 @@ case "$choice" in
 2) top_ten_memory_processes;;
 3) terminate_process;;
 4) disk_inspection;;
+5)
 30) logging_system;;
 40) exit;;
 # If none of the above numbers were inputted, output an error message
