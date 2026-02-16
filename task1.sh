@@ -162,7 +162,7 @@ create_archive_logs_directory() {
 
 generate_text_file() {
     # Generates a large text file that can be used for testing (codemonkey, 2020)
-    tr -dc "A-Za-z 0-9" < /dev/urandom | fold -w100|head -n 500000 > bigfile.txt
+    tr -dc "A-Za-z 0-9" < /dev/urandom | fold -w100|head -n 500000 > biglogfile.txt
     echo "All done!"
 }
 
@@ -177,12 +177,17 @@ compress_text_file() {
     if [ -f "$CHECK_FILE" ]; then
         echo "Success: File exists."
 
-        zip -v "$(date '+%Y -%m -%d %H:%M:%S')".zip "$CHECK_FILE"
+        # Compress the file to a .zip, making it compatible with Windows and macOS
+        zip -v "$(date '+%Y -%m -%d %H %M %S')".zip "$CHECK_FILE"
 
-        echo "File successfully compressed into a .zip file"
+        echo "File successfully compressed into a .zip file."
         echo "=============================================================="
+
+        log_event "Compressed $CHECK_FILE to a .zip file."
+        
     else
         echo "Error: File does not exist!"
+        log_event "Failed to compress a .txt file: could not find in directory"
     fi
 }
 
