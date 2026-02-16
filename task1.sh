@@ -145,9 +145,12 @@ create_archive_logs_directory() {
         return
     fi
 
+    # Creates a variable that has the relative path to ArchiveLogs
     CHECK_DIRECTORY="$BASE_DIR/ArchiveLogs" 
+
+    # If it matches, then the directory already exists and an error message will be outputted
     if [ -d "$CHECK_DIRECTORY" ]; then
-        echo "$CHECK_DIRECTORY already exists!"
+        echo "Error: $CHECK_DIRECTORY already exists!"
 
     else
     mkdir -v ArchiveLogs
