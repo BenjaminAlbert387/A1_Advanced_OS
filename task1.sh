@@ -77,7 +77,6 @@ terminate_process() {
     # If the user is systemd, then prevent terminating
     if [[ "$user" == systemd+ ]]; then
         echo "Error: Cannot terminate a systemd process!"
-        
 
     # If the user is root, then prevent terminating
     elif [[ "$user" == root ]]; then
@@ -88,12 +87,12 @@ terminate_process() {
     read -r -p "Type Y and press Enter to confirm: " ans
 
     if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
-        echo "Cancelled termination"
+        echo "Cancelled termination of "$pid" "
         return
     fi
 
-    kill pid
-    echo "Process terminated successfully"
+    kill "$pid"
+    echo "Process "$pid" terminated successfully"
     fi 
 }
 
