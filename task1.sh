@@ -184,7 +184,7 @@ compress_text_file() {
 
         log_event "Compressed $CHECK_FILE to a .zip file."
 
-        mv "$ZIP_FILE" /ArchiveLogs/
+        mv "$ZIP_FILE" "$BASE_DIR/ArchiveLogs"
 
         echo "File successfuly moved to the ArchiveLogs directory"
         echo "=============================================================="
