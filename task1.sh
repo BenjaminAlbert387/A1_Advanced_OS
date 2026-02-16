@@ -70,6 +70,31 @@ terminate_process() {
 
     # Asks the user for PID
     read -rp "Enter the PID of the process you want to terminate: " pid
+
+    # Checks the user of the process
+    user=$(ps -p "$pid" -o user=)
+
+    # If the user is systemd, then prevent terminating
+    if [[ "$user" == systemd+ ]]; then
+        echo "Error: Cannot terminate a systemd process!"
+        
+
+    # If the user is root, then prevent terminating
+    elif [[ "$user" == root ]]; then
+        echo "Error: Cannot terminate a root process!"
+
+    else
+    echo "Are you sure you want to terminate this process?"
+    read -r -p "Type Y and press Enter to confirm: " ans
+
+    if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
+        echo "Cancelled termination"
+        return
+    fi
+
+    kill pid
+    echo "Process terminated successfully"
+    fi 
 }
 
 disk_inspection() {
@@ -100,7 +125,7 @@ case "$choice" in
 20) disk_inspection;;
 30) logging_system;;
 40) exit;;
-# If none of the above numbers were inputted, output an error messafe
+# If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice";;
 esac
 echo
