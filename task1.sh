@@ -166,7 +166,17 @@ generate_text_file() {
 }
 
 compress_text_file() {
-    echo "Not done yet"
+    #echo "Not done yet"
+
+    # Requires the user to input the file name they want to compress
+    read -r -p "Type the file name, including the .txt part, and press Enter" file
+
+    CHECK_FILE="$BASE_DIR/$file"
+    if [ -f "$CHECK_FILE" ]; then
+        echo "Success: File exists."
+    else
+        echo "Error: File does not exist."
+    fi
 }
 
 logging_system() {
