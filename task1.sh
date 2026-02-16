@@ -55,9 +55,11 @@ cpu_memory_usage() {
     cpuUsage=$(top -bn1 | awk '/Cpu/ { print $2}')
     memUsage=$(free -m | awk '/Mem/{print $3}')
     
+    echo "=============================================================="
     # Outputs the usage to the user
     echo "CPU Usage: $cpuUsage%"
     echo "Memory Usage: $memUsage MB"
+    echo "=============================================================="
 
     log_event "Checked CPU and Memory usage"
 }
@@ -65,7 +67,11 @@ cpu_memory_usage() {
 top_ten_memory_processes() {
     # Generates a list of all active processes, then sorts them by the highest CPU usage first
     # Only the top 10 processes with the highest memory usage are outputted, along with the header
+    echo "=============================================================="
     ps aux --sort=-%cpu | head -n 11
+    echo "=============================================================="
+
+    log_event "Checked top ten memory processes"
 }
 
 terminate_process() {
@@ -126,7 +132,18 @@ disk_inspection() {
 }
 
 create_archive_logs_directory() {
-    echo "Not done yet"
+    echo "=============================================================="
+    echo "This will make an ArchiveLogs directory in your current location."
+
+    # Requires the user to type Y or y to confirm termination
+    read -r -p "Type Y and press Enter to confirm: " ans
+
+    if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
+        echo "Cancelled ArchiveLogs directory creation"
+        log_event "Cancelled ArchiveLogs directory creation"
+        return
+    fi
+
 }
 
 logging_system() {
