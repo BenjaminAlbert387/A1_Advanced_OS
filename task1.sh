@@ -75,7 +75,7 @@ terminate_process() {
     user=$(ps -p "$pid" -o user=)
 
     # If the user is systemd, then prevent terminating
-    if [[ "$user" == systemd+ ]]; then
+    if [[ "$user" == systemd* ]]; then
         echo "Error: Cannot terminate a systemd process!"
 
     # If the user is root, then prevent terminating
