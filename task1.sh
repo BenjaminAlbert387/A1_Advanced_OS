@@ -126,7 +126,7 @@ disk_inspection() {
 }
 
 create_archive_logs_directory() {
-
+    echo "Not done yet"
 }
 
 logging_system() {
@@ -151,7 +151,7 @@ case "$choice" in
 2) top_ten_memory_processes;;
 3) terminate_process;;
 4) disk_inspection;;
-5)
+5) create_archive_logs_directory;;
 30) logging_system;;
 40) exit;;
 # If none of the above numbers were inputted, output an error message
