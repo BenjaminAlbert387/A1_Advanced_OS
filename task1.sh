@@ -167,16 +167,22 @@ generate_text_file() {
 }
 
 compress_text_file() {
-    #echo "Not done yet"
 
     # Requires the user to input the file name they want to compress
-    read -r -p "Type the file name, including the .txt part, and press Enter" file
+    echo "=============================================================="
+    read -r -p "Type the file name, including the .txt part, and press Enter: " file
 
+    # Checks to see whether the file exists in the directory
     CHECK_FILE="$BASE_DIR/$file"
     if [ -f "$CHECK_FILE" ]; then
         echo "Success: File exists."
+
+        zip -v "$(date '+%Y -%m -%d %H:%M:%S')".zip "$CHECK_FILE"
+
+        echo "File successfully compressed into a .zip file"
+        echo "=============================================================="
     else
-        echo "Error: File does not exist."
+        echo "Error: File does not exist!"
     fi
 }
 
