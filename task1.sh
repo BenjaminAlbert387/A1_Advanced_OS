@@ -44,6 +44,7 @@ print_menu() {
     echo "4: Disk Inspection"
     echo "5: Create ArchiveLogs Directory"
     echo "6: Generate Text File"
+    echo "7: Compress Text File"
     echo "=============================================================="
     echo "30: Logging System"
     echo "40: Exit"
@@ -203,6 +204,7 @@ case "$choice" in
 4) disk_inspection;;
 5) create_archive_logs_directory;;
 6) generate_text_file;;
+7) compress_text_file;;
 30) logging_system;;
 40) exit;;
 # If none of the above numbers were inputted, output an error message
