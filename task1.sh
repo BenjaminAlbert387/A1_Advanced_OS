@@ -101,13 +101,13 @@ terminate_process() {
     read -r -p "Type Y and press Enter to confirm: " ans
 
     if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
-        echo "Cancelled termination of process "$pid" "
+        echo "Cancelled termination of process "$pid" ."
         return
     fi
 
     # Terminates the process using the default kill signal SIGTERM (15)
     kill "$pid"
-    echo "Process "$pid" terminated successfully"
+    echo "Process "$pid" terminated successfully!"
     fi 
 }
 
@@ -139,9 +139,18 @@ create_archive_logs_directory() {
     read -r -p "Type Y and press Enter to confirm: " ans
 
     if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
-        echo "Cancelled ArchiveLogs directory creation"
+        echo "Cancelled ArchiveLogs directory creation."
+
         log_event "Cancelled ArchiveLogs directory creation"
         return
+    fi
+
+    CHECK_DIRECTORY="$BASE_DIR/ArchiveLogs" 
+    if [ -d "$CHECK_DIRECTORY" ]; then
+        echo "$CHECK_DIRECTORY already exists!"
+
+    else
+    mkdir -v ArchiveLogs
     fi
 
 }
