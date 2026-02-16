@@ -140,7 +140,6 @@ create_archive_logs_directory() {
 
     if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
         echo "Cancelled ArchiveLogs directory creation."
-
         log_event "Cancelled ArchiveLogs directory creation"
         return
     fi
@@ -151,11 +150,12 @@ create_archive_logs_directory() {
     # If it matches, then the directory already exists and an error message will be outputted
     if [ -d "$CHECK_DIRECTORY" ]; then
         echo "Error: $CHECK_DIRECTORY already exists!"
+        log_event "Failed to make ArchiveLogs directory: already exists"
 
     else
     mkdir -v ArchiveLogs
+    log_event "Successfully created ArchiveLogs directory"
     fi
-
 }
 
 logging_system() {
