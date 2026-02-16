@@ -43,6 +43,7 @@ print_menu() {
     echo "=============================================================="
     echo "4: Disk Inspection"
     echo "5: Create ArchiveLogs Directory"
+    echo "6: Generate Text File"
     echo "=============================================================="
     echo "30: Logging System"
     echo "40: Exit"
@@ -158,6 +159,16 @@ create_archive_logs_directory() {
     fi
 }
 
+generate_text_file() {
+    # Generates a large text file that can be used for testing (codemonkey, 2020)
+    tr -dc "A-Za-z 0-9" < /dev/urandom | fold -w100|head -n 500000 > bigfile.txt
+    echo "All done!"
+}
+
+compress_text_file() {
+    echo "Not done yet"
+}
+
 logging_system() {
     echo "Not done yet"
 }
@@ -181,6 +192,7 @@ case "$choice" in
 3) terminate_process;;
 4) disk_inspection;;
 5) create_archive_logs_directory;;
+6) generate_text_file;;
 30) logging_system;;
 40) exit;;
 # If none of the above numbers were inputted, output an error message
