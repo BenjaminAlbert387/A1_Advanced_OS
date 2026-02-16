@@ -40,7 +40,7 @@ print_menu() {
     echo "2: Show Top Ten Memory Consuming Processes"
     echo "3: Terminate A Selected Process"
     echo "=============================================================="
-    echo "20: Disk Inspection and Log Archiving"
+    echo "4: Disk Inspection"
     echo "30: Logging System"
     echo "40: Exit"
 }
@@ -84,20 +84,39 @@ terminate_process() {
 
     else
     echo "Are you sure you want to terminate this process?"
+
+    # Requires the user to type Y or y to confirm termination
     read -r -p "Type Y and press Enter to confirm: " ans
 
     if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
-        echo "Cancelled termination of "$pid" "
+        echo "Cancelled termination of process "$pid" "
         return
     fi
 
+    # Terminates the process using the default kill signal SIGTERM (15)
     kill "$pid"
     echo "Process "$pid" terminated successfully"
     fi 
 }
 
 disk_inspection() {
-    echo "Not done yet"
+    echo "=============================================================="
+    echo "Disk usage for this directory:"
+
+    # Outputs disk usage based on files in the base directory only
+    du -sh "$BASE_DIR"
+    echo "=============================================================="
+    echo "Disk usage for the entire system:"
+
+    # Outputs disk usage based on files on the system
+    df -h
+    echo "=============================================================="
+
+    # Tutorial on how to read the output
+    echo "K means kilobytes. For example, 50K means 50KB of storage used."
+    echo "K means megabytes. For example, 50M means 50MB of storage used."
+    echo "G means gigabytes. For example, 50G means 50GB of storage used."
+    echo "=============================================================="
 }
 
 logging_system() {
@@ -121,7 +140,7 @@ case "$choice" in
 1) cpu_memory_usage;;
 2) top_ten_memory_processes;;
 3) terminate_process;;
-20) disk_inspection;;
+4) disk_inspection;;
 30) logging_system;;
 40) exit;;
 # If none of the above numbers were inputted, output an error message
