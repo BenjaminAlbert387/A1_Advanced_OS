@@ -178,13 +178,18 @@ compress_text_file() {
         echo "Success: File exists."
 
         # Compress the file to a .zip, making it compatible with Windows and macOS
-        zip -v "$(date '+%Y -%m -%d %H %M %S')".zip "$CHECK_FILE"
-
+        zip -v "$(date '+%Y -%m -%d %H %M')".zip "$CHECK_FILE"
+        ZIP_FILE="$(date '+%Y -%m -%d %H %M')".zip
         echo "File successfully compressed into a .zip file."
-        echo "=============================================================="
 
         log_event "Compressed $CHECK_FILE to a .zip file."
-        
+
+        mv "$ZIP_FILE" /ArchiveLogs/
+
+        echo "File successfuly moved to the ArchiveLogs directory"
+        echo "=============================================================="
+        log_event "Moved .zip file to ArchiveLogs directory"
+
     else
         echo "Error: File does not exist!"
         log_event "Failed to compress a .txt file: could not find in directory"
