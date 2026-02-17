@@ -73,10 +73,11 @@ submit_job_request() {
     echo "Error: Priority must be between 1 to 10. Request denied!"
 
     else
-    echo "Student" "$id" "with job" "$name" "that takes" "$time" "seconds with a priority of" "$priority"
+    echo "Success! Student" "$id" "with job" "$name" ".Takes" "$time" "seconds. Priority of" "$priority"
 
     msg="Student $id with job $name that takes $time seconds with a priority of $priority"
     printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
+    printf "%s %s\n" "$msg" >> "$JOB_QUEUE"
     fi
 }
 
