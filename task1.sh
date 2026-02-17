@@ -16,14 +16,8 @@ echo "Now working in: $(pwd)"
 
 # Initialisation
 
-# Create a backup of the directory
-BACKUP_DIR="$BASE_DIR/Backup"
-
 # Create a log file in the base directory
 LOG_FILE="$BASE_DIR/system_monitor_log.txt"
-
-# Constant that limits the backup_log.txt file to 50MB
-WARNING_LIMIT_MB=50
 
 # Function that generates a log of an event, stored in the variable LOG_FILE
 log_event() {
