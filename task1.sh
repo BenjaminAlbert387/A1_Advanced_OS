@@ -44,7 +44,9 @@ print_menu() {
     echo "4: Disk Inspection"
     echo "5: Create ArchiveLogs Directory"
     echo "6: Generate Text File"
-    echo "7: Compress Text File"
+    echo "7: Detect Log Files Over 50MB"
+    echo "8: Compress Text File"
+    echo "9: Check ArchiveLogs Directory"
     echo "=============================================================="
     echo "30: Logging System"
     echo "40: Exit"
@@ -162,8 +164,23 @@ create_archive_logs_directory() {
 
 generate_text_file() {
     # Generates a large text file that can be used for testing (codemonkey, 2020)
-    tr -dc "A-Za-z 0-9" < /dev/urandom | fold -w100|head -n 500000 > biglogfile.txt
+    tr -dc "A-Za-z 0-9" < /dev/urandom | fold -w100|head -n 600000 > biglogfile.txt
     echo "All done!"
+}
+
+detect_large_log_file() {
+    size=$(du -cm *log* | grep total | cut -f1)
+    echo "File size of logs: " $size "MB"
+
+    if [ "$size" -gt 50 ] ; then
+        echo "Warning: Log files over 50MB detected in main directory!"
+        log_event "Ran large log file check: Log files over 50MB detected"
+
+    else
+        echo "No log files over 50MB detected in main directory"
+        log_event "Ran large log file check: No log files over 50MB detected"
+
+    fi
 }
 
 compress_text_file() {
@@ -184,15 +201,55 @@ compress_text_file() {
 
         log_event "Compressed $CHECK_FILE to a .zip file."
 
+        # Creates a variable that has the relative path to ArchiveLogs
+        CHECK_DIRECTORY="$BASE_DIR/ArchiveLogs" 
+
+        # If it does not exist, then an error message will be outputted
+        if [ ! -d "$CHECK_DIRECTORY" ]; then
+            echo "Error: ArchiveLogs directory does not exist!"
+            echo "Unable to move the .zip file. It will be stored in the base directory instead."
+            log_event "Failed to move .zip file: could not find ArchiveLogs directory"
+
+        else
         mv "$ZIP_FILE" "$BASE_DIR/ArchiveLogs"
 
         echo "File successfuly moved to the ArchiveLogs directory"
         echo "=============================================================="
         log_event "Moved .zip file to ArchiveLogs directory"
+        fi
 
     else
         echo "Error: File does not exist!"
         log_event "Failed to compress a .txt file: could not find in directory"
+    fi
+}
+
+check_archive_logs_directory() {
+    # Creates a variable that has the relative path to ArchiveLogs
+    CHECK_DIRECTORY="$BASE_DIR/ArchiveLogs" 
+
+    # If it does not exist, then an error message will be outputted
+    if [ ! -d "$CHECK_DIRECTORY" ]; then
+        echo "Error: ArchiveLogs directory does not exist!"
+        log_event "Failed to check directory: could not find ArchiveLogs directory"
+
+    else
+    # Get the size of the ArchiveLogs directory in MB
+    size=$(du -sm "$CHECK_DIRECTORY" | cut -f 1)
+
+    # Output the size to the user
+    echo "ArchiveLogs directory is" $size "MB"
+
+    # Prints a warning message if the directory is over 1GB
+    if [ "$size" -gt 1000 ] ; then
+        echo "Warning: ArchiveLogs directory is over 1GB in size!"
+        log_event "ArchiveLogs directory was checked: over 1GB in size"
+    
+    else
+        echo "ArchiveLogs is under 1GB in size"
+        log_event "ArchiveLogs directory was checked: under 1GB in size"
+    fi
+
     fi
 }
 
@@ -220,7 +277,9 @@ case "$choice" in
 4) disk_inspection;;
 5) create_archive_logs_directory;;
 6) generate_text_file;;
-7) compress_text_file;;
+7) detect_large_log_file;;
+8) compress_text_file;;
+9) check_archive_logs_directory;;
 30) logging_system;;
 40) exit;;
 # If none of the above numbers were inputted, output an error message
