@@ -89,8 +89,8 @@ exit() {
 
 main() {
     # Create the necessary log and job files
-    #touch "$SCHEDULER_LOG"
-    #touch "$JOB_QUEUE"
+    touch "$SCHEDULER_LOG"
+    touch "$JOB_QUEUE"
     #touch "$COMPLETED_JOBS"
 
 while true; do
