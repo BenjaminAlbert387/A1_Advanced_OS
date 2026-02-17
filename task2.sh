@@ -18,8 +18,8 @@ echo "Now working in: $(pwd)"
 
 # Create log files in the base directory
 SCHEDULER_LOG="$BASE_DIR/scheduler_log.txt"
-#JOB_QUEUE="$BASE_DIR/job_queue.txt"
-COMPLETED_JOBS="$BASE_DIR/completed_jobs.txt"
+JOB_QUEUE="$BASE_DIR/job_queue.txt"
+#COMPLETED_JOBS="$BASE_DIR/completed_jobs.txt"
 
 # Function that generates a log of an event, stored in the variable SCHEDULER_LOG
 log_event() {
