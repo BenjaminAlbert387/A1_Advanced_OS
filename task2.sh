@@ -18,7 +18,7 @@ echo "Now working in: $(pwd)"
 
 # Create log files in the base directory
 SCHEDULER_LOG="$BASE_DIR/scheduler_log.txt"
-JOB_QUEUE="$BASE_DIR/job_queue.txt"
+#JOB_QUEUE="$BASE_DIR/job_queue.txt"
 COMPLETED_JOBS="$BASE_DIR/completed_jobs.txt"
 
 # Function that generates a log of an event, stored in the variable SCHEDULER_LOG
@@ -99,7 +99,7 @@ print_menu
 read -r -p "Please type in a valid number and hit Enter to select a choice: " choice
 case "$choice" in
 1) view_pending_jobs;;
-19) 
+19) view_scheduler_log;;
 20) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice";;
