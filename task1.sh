@@ -20,7 +20,7 @@ echo "Now working in: $(pwd)"
 BACKUP_DIR="$BASE_DIR/Backup"
 
 # Create a log file in the base directory
-LOG_FILE="$BASE_DIR/backup_log.txt"
+LOG_FILE="$BASE_DIR/system_monitor_log.txt"
 
 # Constant that limits the backup_log.txt file to 50MB
 WARNING_LIMIT_MB=50
@@ -170,7 +170,7 @@ generate_text_file() {
 
 detect_large_log_file() {
     # Gets the size of any files with log in their name, cuts everything else so it can be compared
-    # grep is used to filter to the total 
+    # grep is used to filter the command to just store the total 
     size=$(du -cm *log* | grep total | cut -f1)
 
     # Outputs the size of file logs to the user
