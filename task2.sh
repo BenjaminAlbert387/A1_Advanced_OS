@@ -34,6 +34,7 @@ print_menu() {
     echo "University High Performance Computing Laboratory Main Menu:"
     echo "1: View Pending Jobs"
     echo "2: Submit Job Request"
+    echo "18: View Completed Jobs"
     echo "19: View Scheduler Log"
     echo "20: Exit"
     echo "============================================================================================="
