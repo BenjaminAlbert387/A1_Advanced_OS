@@ -19,7 +19,7 @@ echo "Now working in: $(pwd)"
 # Create log files in the base directory
 SCHEDULER_LOG="$BASE_DIR/scheduler_log.txt"
 JOB_QUEUE="$BASE_DIR/job_queue.txt"
-#COMPLETED_JOBS="$BASE_DIR/completed_jobs.txt"
+COMPLETED_JOBS="$BASE_DIR/completed_jobs.txt"
 
 # Function that generates a log of an event, stored in the variable SCHEDULER_LOG
 log_event() {
@@ -84,6 +84,23 @@ submit_job_request() {
     fi
 }
 
+view_completed_jobs() {
+    FILE_NAME="completed_jobs.txt"
+
+    # If the completed jobs file exists, then output its contents
+    if [ -e "$FILE_NAME" ]; then 
+        content=$(cat "$FILE_NAME") 
+        echo "$content"
+        log_event "Read completed jobs file" 
+    else 
+        echo "Warning: Read completed jobs file not found. It will be created now."
+
+        # Creates a new Read completed jobs file if the user deletes the previous one
+        touch "$LOG_FILE"
+        log_event "Read completed jobs file made after attempt to check a non existing file"
+    fi
+}
+
 view_scheduler_log() {
     FILE_NAME="scheduler_log.txt"
 
@@ -117,10 +134,10 @@ exit() {
 }
 
 main() {
-    # Create the necessary log and job files
+    # Create the necessary log and job files when the program loads for the first time
     touch "$SCHEDULER_LOG"
     touch "$JOB_QUEUE"
-    #touch "$COMPLETED_JOBS"
+    touch "$COMPLETED_JOBS"
 
 while true; do
 print_menu
@@ -129,6 +146,7 @@ read -r -p "Please type in a valid number and hit Enter to select a choice: " ch
 case "$choice" in
 1) view_pending_jobs;;
 2) submit_job_request;;
+18) view_completed_jobs;; 
 19) view_scheduler_log;;
 20) exit;;
 # If none of the above numbers were inputted, output an error message
