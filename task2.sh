@@ -65,12 +65,15 @@ submit_job_request() {
 
     if [[ -z "$id" ]] || [[ -z "$name" ]] || [[ -z "$time" ]] || [[ -z "$priority" ]]; then
     echo "Error: One or more options are blank. Request denied!"
+    log_event "Failed to submit job request: user submitted a blank option"
 
     elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] ; then
     echo "Error: One or more options wanted an integer you didn't give. Request denied!"
+    log_event "Failed to submit job request: user submitted letters instead of integers"
 
     elif [ "$priority" -gt 10 ] || [ "$priority" -lt 1 ] ; then
     echo "Error: Priority must be between 1 to 10. Request denied!"
+    log_event "Failed to submit job request: user submitted invalid priority"
 
     else
     echo "Success! Student" "$id" "with job" "$name" ".Takes" "$time" "seconds. Priority of" "$priority"
