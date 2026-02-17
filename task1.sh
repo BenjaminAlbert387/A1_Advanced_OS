@@ -276,7 +276,18 @@ logging_system() {
 }
 
 exit() {
-    echo "Not done yet"
+    echo "This will close the program. Are you sure?"
+
+    # Requires the user to type Y or y to confirm exit
+    read -r -p "Type Y and press Enter to confirm. Type anything else to cancel. " ans
+
+    if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
+        echo "Cancelled exit."
+
+    else
+        # Terminates the current process (the program) using a special Bash command to get PID
+        kill $$    
+    fi
 }
 
 # The main loop, which contains function calls
