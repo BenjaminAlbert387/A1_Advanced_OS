@@ -260,14 +260,18 @@ check_archive_logs_directory() {
 
 logging_system() {
     FILE_NAME="system_monitor_log.txt"
+
     # If the log file exists, then output its contents
     if [ -e "$FILE_NAME" ]; then 
         content=$(cat "$FILE_NAME") 
-        echo "$content" 
+        echo "$content"
+        log_event "Read log files" 
     else 
-        echo "Warning: Log file not found. It will be created now." 
+        echo "Warning: Log file not found. It will be created now."
+
+        # Creates a new log file if the user deletes the previous one while the program is running 
         touch "$LOG_FILE"
-        log_event "Log file made after attempt to check a non existing file"
+        log_event "Log file made after attempt to check a non existing log file"
     fi
 }
 
