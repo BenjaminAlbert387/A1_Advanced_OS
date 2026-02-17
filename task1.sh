@@ -34,20 +34,20 @@ log_event() {
 
 # Function that prints the menu screen
 print_menu() {
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "University Data Centre Main Menu:"
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "1: Show CPU and Memory Usage"
     echo "2: Show Top Ten Memory Consuming Processes"
     echo "3: Terminate A Selected Process"
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "4: Disk Inspection"
     echo "5: Create ArchiveLogs Directory"
     echo "6: Generate Text File"
     echo "7: Detect Log Files Over 50MB"
     echo "8: Compress Text File"
     echo "9: Check ArchiveLogs Directory"
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "30: Logging System"
     echo "40: Exit"
 }
@@ -59,11 +59,11 @@ cpu_memory_usage() {
     cpuUsage=$(top -bn1 | awk '/Cpu/ { print $2}')
     memUsage=$(free -m | awk '/Mem/{print $3}')
     
-    echo "=============================================================="
+    echo "============================================================================================="
     # Outputs the usage to the user
     echo "CPU Usage: $cpuUsage%"
     echo "Memory Usage: $memUsage MB"
-    echo "=============================================================="
+    echo "============================================================================================="
 
     log_event "Checked CPU and Memory usage"
 }
@@ -71,18 +71,18 @@ cpu_memory_usage() {
 top_ten_memory_processes() {
     # Generates a list of all active processes, then sorts them by the highest CPU usage first
     # Only the top 10 processes with the highest memory usage are outputted, along with the header
-    echo "=============================================================="
+    echo "============================================================================================="
     ps aux --sort=-%cpu | head -n 11
-    echo "=============================================================="
+    echo "============================================================================================="
 
     log_event "Checked top ten memory processes"
 }
 
 terminate_process() {
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "Currently Running Processes:"
     ps aux
-    echo "=============================================================="
+    echo "============================================================================================="
 
     # Asks the user for PID
     read -rp "Enter the PID of the process you want to terminate: " pid
@@ -116,27 +116,27 @@ terminate_process() {
 }
 
 disk_inspection() {
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "Disk usage for this directory:"
 
     # Outputs disk usage based on files in the base directory only
     du -sh "$BASE_DIR"
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "Disk usage for the entire system:"
 
     # Outputs disk usage based on files on the system
     df -h
-    echo "=============================================================="
+    echo "============================================================================================="
 
     # Tutorial on how to read the output
     echo "K means kilobytes. For example, 50K means 50KB of storage used."
     echo "K means megabytes. For example, 50M means 50MB of storage used."
     echo "G means gigabytes. For example, 50G means 50GB of storage used."
-    echo "=============================================================="
+    echo "============================================================================================="
 }
 
 create_archive_logs_directory() {
-    echo "=============================================================="
+    echo "============================================================================================="
     echo "This will make an ArchiveLogs directory in your current location."
 
     # Requires the user to type Y or y to confirm termination
@@ -190,7 +190,7 @@ detect_large_log_file() {
 compress_text_file() {
 
     # Requires the user to input the file name they want to compress
-    echo "=============================================================="
+    echo "============================================================================================="
     read -r -p "Type the file name, including the .txt part, and press Enter: " file
 
     # Checks to see whether the file exists in the directory
@@ -218,7 +218,7 @@ compress_text_file() {
         mv "$ZIP_FILE" "$BASE_DIR/ArchiveLogs"
 
         echo "File successfuly moved to the ArchiveLogs directory"
-        echo "=============================================================="
+        echo "==========================================================================================="
         log_event "Moved .zip file to ArchiveLogs directory"
         fi
 
