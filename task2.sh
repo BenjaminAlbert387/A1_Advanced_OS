@@ -25,6 +25,7 @@ JOB_QUEUE="$BASE_DIR/job_queue.txt"
 log_event() {
     local msg="$1"
     # Stores the date and time, as well as log message
+    # %s means print a string value, %s\n means print on a new line"
     printf "%s %s\n " "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
 }
 
@@ -32,6 +33,7 @@ print_menu() {
     echo "============================================================================================="
     echo "University High Performance Computing Laboratory Main Menu:"
     echo "1: View Pending Jobs"
+    echo "2: Submit Job Request"
     echo "19: View Scheduler Log"
     echo "20: Exit"
     echo "============================================================================================="
@@ -52,6 +54,29 @@ view_pending_jobs() {
         # Creates a new job queue file if the user deletes the previous one while the program is running 
         touch "$JOB_QUEUE"
         log_event "Job queue file made after attempt to check a non existing file"
+    fi
+}
+
+submit_job_request() {
+    read -rp "Enter your student ID, then press Enter: " id
+    read -rp "Enter your job name, then press Enter: " name
+    read -rp "Enter the job's execution time, in seconds, then press Enter: " time
+    read -rp "Enter the job's priority, from 1 to 10, then press Enter: " priority
+
+    if [[ -z "$id" ]] || [[ -z "$name" ]] || [[ -z "$time" ]] || [[ -z "$priority" ]]; then
+    echo "Error: One or more options are blank. Request denied!"
+
+    elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] ; then
+    echo "Error: One or more options wanted an integer you didn't give. Request denied!"
+
+    elif [ "$priority" -gt 10 ] || [ "$priority" -ls 1 ] ; then
+    echo "Error: Priority must be between 1 to 10. Request denied!"
+
+    else
+    echo "Student" "$id" "with job" "$name" "that takes" "$time" "seconds with a priority of" "$priority"
+
+    msg="Student" "$id" "with job" "$name" "that takes" "$time" "seconds with a priority of" "$priority"
+    printf "%s %s\n " "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
     fi
 }
 
@@ -99,6 +124,7 @@ print_menu
 read -r -p "Please type in a valid number and hit Enter to select a choice: " choice
 case "$choice" in
 1) view_pending_jobs;;
+2) submit_job_request;;
 19) view_scheduler_log;;
 20) exit;;
 # If none of the above numbers were inputted, output an error message
