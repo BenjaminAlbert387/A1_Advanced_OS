@@ -8,7 +8,7 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Change to that directory if needed
 cd "$BASE_DIR" || {
     echo "Failed to change directory to $BASE_DIR"
-    exit 1
+    kill $$
 }
 
 # Output working directory 
