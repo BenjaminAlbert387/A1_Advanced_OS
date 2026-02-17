@@ -48,8 +48,9 @@ print_menu() {
     echo "8: Compress Text File"
     echo "9: Check ArchiveLogs Directory"
     echo "============================================================================================="
-    echo "30: Logging System"
-    echo "40: Exit"
+    echo "10: Read System Logs"
+    echo "11: Exit"
+    echo "============================================================================================="
 }
 
 # Function that outputs the current CPU and memory usage
@@ -218,7 +219,7 @@ compress_text_file() {
         mv "$ZIP_FILE" "$BASE_DIR/ArchiveLogs"
 
         echo "File successfuly moved to the ArchiveLogs directory"
-        echo "==========================================================================================="
+        echo "=========================================================================================="
         log_event "Moved .zip file to ArchiveLogs directory"
         fi
 
@@ -258,7 +259,16 @@ check_archive_logs_directory() {
 }
 
 logging_system() {
-    echo "Not done yet"
+    FILE_NAME="system_monitor_log.txt"
+    # If the log file exists, then output its contents
+    if [ -e "$FILE_NAME" ]; then 
+        content=$(cat "$FILE_NAME") 
+        echo "$content" 
+    else 
+        echo "Warning: Log file not found. It will be created now." 
+        touch "$LOG_FILE"
+        log_event "Log file made after attempt to check a non existing file"
+    fi
 }
 
 exit() {
@@ -284,8 +294,8 @@ case "$choice" in
 7) detect_large_log_file;;
 8) compress_text_file;;
 9) check_archive_logs_directory;;
-30) logging_system;;
-40) exit;;
+10) logging_system;;
+11) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice";;
 esac
