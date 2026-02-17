@@ -69,14 +69,14 @@ submit_job_request() {
     elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] ; then
     echo "Error: One or more options wanted an integer you didn't give. Request denied!"
 
-    elif [ "$priority" -gt 10 ] || [ "$priority" -ls 1 ] ; then
+    elif [ "$priority" -gt 10 ] || [ "$priority" -lt 1 ] ; then
     echo "Error: Priority must be between 1 to 10. Request denied!"
 
     else
     echo "Student" "$id" "with job" "$name" "that takes" "$time" "seconds with a priority of" "$priority"
 
-    msg="Student" "$id" "with job" "$name" "that takes" "$time" "seconds with a priority of" "$priority"
-    printf "%s %s\n " "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
+    msg="Student $id with job $name that takes $time seconds with a priority of $priority"
+    printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
     fi
 }
 
