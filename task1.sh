@@ -169,7 +169,11 @@ generate_text_file() {
 }
 
 detect_large_log_file() {
+    # Gets the size of any files with log in their name, cuts everything else so it can be compared
+    # grep is used to filter to the total 
     size=$(du -cm *log* | grep total | cut -f1)
+
+    # Outputs the size of file logs to the user
     echo "File size of logs: " $size "MB"
 
     if [ "$size" -gt 50 ] ; then
