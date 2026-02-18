@@ -60,7 +60,7 @@ view_pending_jobs() {
 }
 
 submit_job_request() {
-    read -rp "Enter your student ID, which starts with 100, then press Enter: " id
+    read -rp "Enter your student ID, which is a number over 1000, then press Enter: " id
     read -rp "Enter your job name, then press Enter: " name
     read -rp "Enter the job's execution time, in seconds, then press Enter: " time
     read -rp "Enter the job's priority, from 1 to 10, then press Enter: " priority
@@ -77,8 +77,8 @@ submit_job_request() {
     echo "Error: Priority must be between 1 to 10. Request denied!"
     log_event "Failed to submit job request: user submitted invalid priority"
 
-    elif [ "$id" -lt 100 ] ; then
-    echo "Error: Student ID must start with 100. Request denied!"
+    elif [ "$id" -lt 1001 ] ; then
+    echo "Error: Student ID must be a number over 1000. Request denied!"
     log_event "Failed to submit job request: user submitted invalid student ID"
 
     else
@@ -94,10 +94,15 @@ process_job_queue() {
     # Load the Job queue file
     FILE_NAME="$JOB_QUEUE"
 
+    # User inputs their student ID
     read -rp "Enter your student ID, then press Enter: " id
 
+    # Checks to see if their student ID has a job associated with it
     if grep -q "$id" job_queue.txt ; then
     echo "Student ID found on the job queue!"
+
+    echo "The job process queue will begin now."
+    echo "Note: Priority Scheduling is used. Your job may not be done first!"
 
     else
     echo "Error: Your student ID is not found on the job queue"
