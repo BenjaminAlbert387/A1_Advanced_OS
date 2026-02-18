@@ -106,7 +106,8 @@ process_job_queue() {
     sort -t$',' -k4 -r "$JOB_QUEUE"
 
     # For each student ID present in the job_queue.txt
-    for line in $(sort -t',' -k4,4 -nr "$JOB_QUEUE"); do
+    # Removes any whitespaces to process the data to be cut
+    for line in $(sort -t',' -k4,4nr "$JOB_QUEUE" | tr -d '\r'); do
 
         # Gets the student ID from job_queue.txt 
         id=$(echo "$line" | cut -d',' -f1)
@@ -130,6 +131,7 @@ process_job_queue() {
         echo "Task "$name" for student "$id" done!"
 
     done
+    # Output message when all jobs are completed
     echo "All tasks in the job queue are done!"
 
     # Transfer contents of job_queue.txt file to completed_jobs.txt
@@ -142,6 +144,7 @@ process_job_queue() {
     log_event "Successfully cleared the job queue"
 
     else
+    # Output error message if student ID is not present, or if the job queue is empty
     echo "Error: Your student ID is not found on the job queue"
     log_event "Failed to process jobs: student ID not found on job_queue.txt"
 
