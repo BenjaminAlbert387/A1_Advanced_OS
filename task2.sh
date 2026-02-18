@@ -101,9 +101,39 @@ process_job_queue() {
     if grep -q "$id" job_queue.txt ; then
     echo "Student ID found on the job queue!"
 
-    echo "The job process queue will begin now."
+    echo "The job process queue will begin now. You cannot stop once it starts."
     echo "Note: Priority Scheduling is used. Your job may not be done first!"
-    sort -k -t$',' -r "$JOB_QUEUE"
+    sort -t$',' -k4 -r "$JOB_QUEUE"
+
+    # For each student ID present in the job_queue.txt
+    for line in $(sort -t',' -k4,4 -nr "$JOB_QUEUE"); do
+
+        # Gets the student ID from job_queue.txt 
+        id=$(echo "$line" | cut -d',' -f1)
+
+        # Gets the student name from job_queue.txt 
+        name=$(echo "$line" | cut -d',' -f2)
+
+        # Gets the job time from job_queue.txt 
+        time=$(echo "$line" | cut -d',' -f3)
+
+        # Gets the job priority from job_queue.txt 
+        priority=$(echo "$line" | cut -d',' -f4)
+
+        # Outputs a waiting message
+        echo "Processing task..."
+
+        # Simulates the system working on a task
+        sleep "$time"
+
+        # Outputs a confirmation message
+        echo "Task "$name" done!"
+
+    done
+    echo "All tasks in the job queue are done!"
+
+    # Transfer contents of job_queue.txt file to completed_jobs.txt
+    cp "$JOB_QUEUE" "
 
     else
     echo "Error: Your student ID is not found on the job queue"
