@@ -123,20 +123,28 @@ process_job_queue() {
         # Outputs a waiting message
         echo "Processing task..."
 
-        # Simulates the system working on a task
+        # Simulates the system working on the task
         sleep "$time"
 
         # Outputs a confirmation message
-        echo "Task "$name" done!"
+        echo "Task "$name" for student "$id" done!"
 
     done
     echo "All tasks in the job queue are done!"
 
     # Transfer contents of job_queue.txt file to completed_jobs.txt
-    cp "$JOB_QUEUE" "
+    cp "$JOB_QUEUE" "$COMPLETED_JOBS"
+    echo "Moved the job queue into completed_jobs.txt."
+
+    # Clears the job_queue.txt file
+    > "$JOB_QUEUE"
+    echo "Cleared the job queue file."
+    log_event "Successfully cleared the job queue"
 
     else
     echo "Error: Your student ID is not found on the job queue"
+    log_event "Failed to process jobs: student ID not found on job_queue.txt"
+
     fi
 
 }
