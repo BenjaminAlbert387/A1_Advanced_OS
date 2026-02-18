@@ -84,7 +84,7 @@ submit_job_request() {
     else
     echo "Success! Student" "$id" "with job" "$name" ".Takes" "$time" "seconds. Priority of" "$priority"
 
-    msg="Student $id with job $name that takes $time seconds with a priority of $priority"
+    msg="$id,$name,$time,$priority"
     printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
     printf "%s %s\n" "$msg" >> "$JOB_QUEUE"
     fi
@@ -103,7 +103,7 @@ process_job_queue() {
 
     echo "The job process queue will begin now."
     echo "Note: Priority Scheduling is used. Your job may not be done first!"
-    sort -k 14 -r "$JOB_QUEUE"
+    sort -k -t$',' -r "$JOB_QUEUE"
 
     else
     echo "Error: Your student ID is not found on the job queue"
