@@ -34,10 +34,11 @@ print_menu() {
     echo "University High Performance Computing Laboratory Main Menu:"
     echo "1: View Pending Jobs"
     echo "2: Submit Job Request"
-    echo "3: Process Job Queue"
-    echo "18: View Completed Jobs"
-    echo "19: View Scheduler Log"
-    echo "20: Exit"
+    echo "3: Process Job Queue Using Priority Scheduling"
+    echo "4: View Completed Jobs"
+    echo "============================================================================================="
+    echo "5: View Scheduler Log"
+    echo "6: Exit"
     echo "============================================================================================="
 }
 
@@ -60,30 +61,38 @@ view_pending_jobs() {
 }
 
 submit_job_request() {
+    # User inputs student ID, job name, execution time and priority
     read -rp "Enter your student ID, which is a number over 1000, then press Enter: " id
     read -rp "Enter your job name, then press Enter: " name
     read -rp "Enter the job's execution time, in seconds, then press Enter: " time
-    read -rp "Enter the job's priority, from 1 to 10, then press Enter: " priority
+    read -rp "Enter the job's priority, from 1 (lowest) to 10 (highest), then press Enter: " priority
 
+    # Input validation 1: Check for presence
     if [[ -z "$id" ]] || [[ -z "$name" ]] || [[ -z "$time" ]] || [[ -z "$priority" ]]; then
     echo "Error: One or more options are blank. Request denied!"
     log_event "Failed to submit job request: user submitted a blank option"
 
+    # Input validation 2: Check for integers
     elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] || [[ -n ${id//[0-9]/} ]]; then
     echo "Error: One or more options wanted an integer you didn't give. Request denied!"
     log_event "Failed to submit job request: user submitted letters instead of integers"
 
+    # Input validation 3: Check priority range is between 1 to 10
     elif [ "$priority" -gt 10 ] || [ "$priority" -lt 1 ] ; then
     echo "Error: Priority must be between 1 to 10. Request denied!"
     log_event "Failed to submit job request: user submitted invalid priority"
 
+    # Input validation 4: Check student ID is over 1000
     elif [ "$id" -lt 1001 ] ; then
     echo "Error: Student ID must be a number over 1000. Request denied!"
+
     log_event "Failed to submit job request: user submitted invalid student ID"
 
     else
+    # Output a success message
     echo "Success! Student" "$id" "with job" "$name" ".Takes" "$time" "seconds. Priority of" "$priority"
 
+    # Stores the student information in scheduler_log.txt and job_queue.txt
     msg="$id,$name,$time,$priority"
     printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
     printf "%s %s\n" "$msg" >> "$JOB_QUEUE"
@@ -101,8 +110,12 @@ process_job_queue() {
     if grep -q "$id" job_queue.txt ; then
     echo "Student ID found on the job queue!"
 
+    # Output messages to the user
     echo "The job process queue will begin now. You cannot stop once it starts."
     echo "Note: Priority Scheduling is used. Your job may not be done first!"
+    log_event "Started to begin job queue"
+
+    # Sorts the job queue based on priority. 10 has the highest priority.
     sort -t$',' -k4 -r "$JOB_QUEUE"
 
     # For each student ID present in the job_queue.txt
@@ -137,6 +150,7 @@ process_job_queue() {
     # Transfer contents of job_queue.txt file to completed_jobs.txt
     cp "$JOB_QUEUE" "$COMPLETED_JOBS"
     echo "Moved the job queue into completed_jobs.txt."
+    log_event "Moved contents of job_queue.txt to completed_job.txt"
 
     # Clears the job_queue.txt file
     > "$JOB_QUEUE"
@@ -194,6 +208,7 @@ exit() {
 
     if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
         echo "Cancelled exit."
+        log_event "Cancelled exit of program"
 
     else
         # Terminates the current process (the program) using a special Bash command to get PID
@@ -210,16 +225,16 @@ main() {
 while true; do
 print_menu
 # Reads in an input from the user
-read -r -p "Please type in a valid number and hit Enter to select a choice: " choice
+read -r -p "Please type in a valid number, and hit Enter to select a choice: " choice
 case "$choice" in
 1) view_pending_jobs;;
 2) submit_job_request;;
 3) process_job_queue;;
-18) view_completed_jobs;; 
-19) view_scheduler_log;;
-20) exit;;
+4) view_completed_jobs;; 
+5) view_scheduler_log;;
+6) exit;;
 # If none of the above numbers were inputted, output an error message
-*) echo "Error: Invalid choice";;
+*) echo "Error: Invalid choice!";;
 esac
 echo
 done
