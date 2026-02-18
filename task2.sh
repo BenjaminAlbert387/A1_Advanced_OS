@@ -85,7 +85,6 @@ submit_job_request() {
     # Input validation 4: Check student ID is over 1000
     elif [ "$id" -lt 1001 ] ; then
     echo "Error: Student ID must be a number over 1000. Request denied!"
-
     log_event "Failed to submit job request: user submitted invalid student ID"
 
     else
