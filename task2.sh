@@ -103,6 +103,7 @@ process_job_queue() {
 
     echo "The job process queue will begin now."
     echo "Note: Priority Scheduling is used. Your job may not be done first!"
+    sort -k 14 -r "$JOB_QUEUE"
 
     else
     echo "Error: Your student ID is not found on the job queue"
