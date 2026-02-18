@@ -34,6 +34,7 @@ print_menu() {
     echo "University High Performance Computing Laboratory Main Menu:"
     echo "1: View Pending Jobs"
     echo "2: Submit Job Request"
+    echo "3: Process Job Queue"
     echo "18: View Completed Jobs"
     echo "19: View Scheduler Log"
     echo "20: Exit"
@@ -59,7 +60,7 @@ view_pending_jobs() {
 }
 
 submit_job_request() {
-    read -rp "Enter your student ID, then press Enter: " id
+    read -rp "Enter your student ID, which starts with 100, then press Enter: " id
     read -rp "Enter your job name, then press Enter: " name
     read -rp "Enter the job's execution time, in seconds, then press Enter: " time
     read -rp "Enter the job's priority, from 1 to 10, then press Enter: " priority
@@ -68,13 +69,16 @@ submit_job_request() {
     echo "Error: One or more options are blank. Request denied!"
     log_event "Failed to submit job request: user submitted a blank option"
 
-    elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] ; then
+    elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] || [[ -n ${id//[0-9]/} ]]; then
     echo "Error: One or more options wanted an integer you didn't give. Request denied!"
     log_event "Failed to submit job request: user submitted letters instead of integers"
 
     elif [ "$priority" -gt 10 ] || [ "$priority" -lt 1 ] ; then
     echo "Error: Priority must be between 1 to 10. Request denied!"
     log_event "Failed to submit job request: user submitted invalid priority"
+
+    elif [ "$id" -lt 100 ] ; then
+    echo "Error: Student ID must start with 100. Request denied!"
 
     else
     echo "Success! Student" "$id" "with job" "$name" ".Takes" "$time" "seconds. Priority of" "$priority"
@@ -83,6 +87,21 @@ submit_job_request() {
     printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
     printf "%s %s\n" "$msg" >> "$JOB_QUEUE"
     fi
+}
+
+process_job_queue() {
+    # Load the Job queue file
+    FILE_NAME="$JOB_QUEUE"
+
+    read -rp "Enter your student ID, then press Enter: " id
+
+    if grep -q "$id" job_queue.txt ; then
+    echo "Student ID found on the job queue!"
+
+    else
+    echo "Error: Your student ID is not found on the job queue"
+    fi
+
 }
 
 view_completed_jobs() {
@@ -147,6 +166,7 @@ read -r -p "Please type in a valid number and hit Enter to select a choice: " ch
 case "$choice" in
 1) view_pending_jobs;;
 2) submit_job_request;;
+3) process_job_queue;;
 18) view_completed_jobs;; 
 19) view_scheduler_log;;
 20) exit;;
