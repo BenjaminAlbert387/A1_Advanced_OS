@@ -79,6 +79,7 @@ submit_job_request() {
 
     elif [ "$id" -lt 100 ] ; then
     echo "Error: Student ID must start with 100. Request denied!"
+    log_event "Failed to submit job request: user submitted invalid student ID"
 
     else
     echo "Success! Student" "$id" "with job" "$name" ".Takes" "$time" "seconds. Priority of" "$priority"
