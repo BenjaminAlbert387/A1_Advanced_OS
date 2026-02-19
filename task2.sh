@@ -208,7 +208,7 @@ exit() {
         # Reads in user input
         read -r -p "Type Y and press Enter to confirm. Type N and press Enter to cancel. " ans
 
-        # User input must match the cases or they will be unable to break out of the while loop
+        # User input must match the valid inputs
         case "$ans" in
             Y|y)
                 # Terminates the current process (the program) using a special Bash command to get PID

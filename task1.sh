@@ -270,18 +270,31 @@ logging_system() {
 }
 
 exit() {
-    echo "This will close the program. Are you sure?"
+    # While loop only breaks if the user inputs Y or N
+    while true; do
+        echo "You are about to exit the progam. Are you sure?"
 
-    # Requires the user to type Y or y to confirm exit
-    read -r -p "Type Y and press Enter to confirm. Type anything else to cancel. " ans
+        # Reads in user input
+        read -r -p "Type Y and press Enter to confirm. Type N and press Enter to cancel. " ans
 
-    if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
-        echo "Cancelled exit."
-
-    else
-        # Terminates the current process (the program) using a special Bash command to get PID
-        kill $$    
-    fi
+        # User input must match the valid inputs
+        case "$ans" in
+            Y|y)
+                # Terminates the current process (the program) using a special Bash command to get PID
+                kill $$ 
+                ;;
+            N|n)
+                echo "Cancelled exit. You will be returned to the main menu."
+                log_event "Cancelled exit of the program"
+                ;;
+            *)  
+                echo "Error: neither Y or N was entered."
+                log_event "Failed to exit the program"
+                continue 
+                ;;
+        esac
+        break
+    done
 }
 
 # The main loop, which contains function calls
