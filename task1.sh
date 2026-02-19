@@ -272,7 +272,7 @@ logging_system() {
 exit() {
     # While loop only breaks if the user inputs Y or N
     while true; do
-        echo "You are about to exit the progam. Are you sure?"
+        echo "You are about to exit the program. Are you sure?"
 
         # Reads in user input
         read -r -p "Type Y and press Enter to confirm. Type N and press Enter to cancel. " ans
