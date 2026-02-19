@@ -94,7 +94,7 @@ submit_job_request() {
 
     # Stores the student information in scheduler_log.txt and job_queue.txt
     msg="$id,$name,$time,$priority"
-    printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SCHEDULER_LOG"
+    printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" "(Priority scheduling)" >> "$SCHEDULER_LOG"
     printf "%s %s\n" "$msg" >> "$JOB_QUEUE"
     fi
 }
