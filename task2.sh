@@ -52,6 +52,7 @@ view_pending_jobs() {
         log_event "Viewed pending jobs list" 
 
     else 
+        # Output warning to the user
         echo "Warning: Job queue file not found. It will be created now."
 
         # Creates a new job queue file if the user deletes the previous one while the program is running 
@@ -115,7 +116,7 @@ process_job_queue() {
     log_event "Started to begin job queue"
 
     # Sorts the job queue based on priority. 10 has the highest priority.
-    sort -t$',' -k4 -r "$JOB_QUEUE"
+    sort -t$',' -k4,4nr "$JOB_QUEUE"
 
     # For each student ID present in the job_queue.txt
     # Removes any whitespaces to process the data to be cut
