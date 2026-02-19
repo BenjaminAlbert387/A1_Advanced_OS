@@ -203,19 +203,26 @@ view_scheduler_log() {
 exit() {
     # While loop only breaks if the user inputs Y or N
     while true; do
-        echo "
+        echo "You are about to exit the progam. Are you sure?"
+
+        # Reads in user input
         read -r -p "Type Y and press Enter to confirm. Type N and press Enter to cancel. " ans
-        case "$response" in
+
+        # User input must match the cases or they will be unable to break out of the while loop
+        case "$ans" in
             Y|y)
+                # Terminates the current process (the program) using a special Bash command to get PID
                 kill $$ 
                 ;;
             N|n)
                 echo "Cancelled exit. You will be returned to the main menu."
                 log_event "Cancelled exit of the program"
-            ;;
-            *)  echo "Error: neither Y or N was entered."
+                ;;
+            *)  
+                echo "Error: neither Y or N was entered."
                 log_event "Failed to exit the program"
-            continue ;;
+                continue 
+                ;;
         esac
         break
     done
