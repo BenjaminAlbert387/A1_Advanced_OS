@@ -201,19 +201,24 @@ view_scheduler_log() {
 }
 
 exit() {
-    echo "This will close the program. Are you sure?"
-
-    # Requires the user to type Y or y to confirm exit
-    read -r -p "Type Y and press Enter to confirm. Type anything else to cancel. " ans
-
-    if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
-        echo "Cancelled exit."
-        log_event "Cancelled exit of program"
-
-    else
-        # Terminates the current process (the program) using a special Bash command to get PID
-        kill $$    
-    fi
+    # While loop only breaks if the user inputs Y or N
+    while true; do
+        echo "
+        read -r -p "Type Y and press Enter to confirm. Type N and press Enter to cancel. " ans
+        case "$response" in
+            Y|y)
+                kill $$ 
+                ;;
+            N|n)
+                echo "Cancelled exit. You will be returned to the main menu."
+                log_event "Cancelled exit of the program"
+            ;;
+            *)  echo "Error: neither Y or N was entered."
+                log_event "Failed to exit the program"
+            continue ;;
+        esac
+        break
+    done
 }
 
 main() {
