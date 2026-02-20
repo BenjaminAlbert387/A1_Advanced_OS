@@ -59,12 +59,17 @@ submit_assignment() {
 
         for all_files in "$SUBMITTED_ASSIGNMENTS"/*; do
             [[ "$all_files" == "$CHECK_FILE" ]] && continue
-            if cmp -s "$CHECK_FILE" "$all_files"; then
-                echo "Match found!"
+
+            # Remove all whitespace
+            remove_whitespace_check=$(tr -d '[:space:]' < "$CHECK_FILE")
+            remove_whitespace_all=$(tr -d '[:space:]' < "$all_files")
+
+            if [[ "$remove_whitespace_check" == "$remove_whitespace_all" ]]; then
+                echo "Error: File has exact matching content found!"
+                log_event "Failed to upload assignment: exact matching content found"
                 break
             fi
         done
-        echo "No match"
 
         
     else
