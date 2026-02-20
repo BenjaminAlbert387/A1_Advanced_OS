@@ -35,6 +35,7 @@ print_menu() {
     echo "University Examination Board Main Menu:"
     echo "1: Create Submitted_Assignments Directory"
     echo "2: Submit Assignment"
+    echo "3: Check Submitted Files"
     echo "5: Exit"
     echo "============================================================================================="
 }
@@ -121,6 +122,8 @@ submit_assignment() {
 
         # Transfer file to Submitted_Assignments directory
         cp "$CHECK_FILE" Submitted_Assignments
+
+        # Output success message to the user and logs event
         echo "Successfully uploaded "$file"!"
         log_event "Submission "$file" uploaded successfully."        
 
@@ -130,6 +133,34 @@ submit_assignment() {
         log_event "Failed to submit assignment: could not find in directory"
     fi
 }
+
+check_submitted_files() {
+    # Requires the user to input the file name they want to check
+    echo "============================================================================================="
+    read -r -p "Type the file name, including the .pdf part, and press Enter: " file
+
+    # Checks to see whether the file exists in the directory
+    CHECK_FILE="$BASE_DIR/$file"
+    if [ -f "$CHECK_FILE" ]; then
+        echo "Success: File exists in the base directory."
+
+        # Check for matching file names in Submitted_Assignments
+        DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
+        if [ -f "$DUPLICATE_FILE" ]; then
+            echo "File with the same name has already been submitted. Rename it."
+            log_event "Checked submitted files: one or more files matched names"
+        else
+            echo "No files had a matching name."
+            log_event "Checked submitted files: no files matched names"
+        fi
+
+    else
+        echo "Error: File does not exist!"
+        log_event "Failed to check file: could not find in directory"
+    fi
+    }
+
+
 
 exit() {
     # While loop only breaks if the user inputs Y or N
