@@ -5,4 +5,6 @@
  2026 -02 -20 17:29:02 Submission /mnt/c/Users/benja/Documents/GitHub/A1_Advanced_OS/test1.pdf uploaded successfully
  2026 -02 -20 17:33:11 Submission /mnt/c/Users/benja/Documents/GitHub/A1_Advanced_OS/test1.pdf uploaded successfully
  2026 -02 -20 17:35:24 Submission test1.pdf uploaded successfully.
+ 2026 -02 -20 18:13:59 Checked submitted files: no files matched names
+ 2026 -02 -20 18:15:49 Checked submitted files: one or more files matched names
  
