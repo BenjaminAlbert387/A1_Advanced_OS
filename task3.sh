@@ -45,18 +45,30 @@ submit_assignment() {
     # Checks to see whether the file exists in the directory
     CHECK_FILE="$BASE_DIR/$file"
     if [ -f "$CHECK_FILE" ]; then
-        echo "Success: File exists."
+        echo "Success: File exists in the base directory."
 
+        # Checks to see if the file names are matching
         DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
         if [ -f "$DUPLICATE_FILE" ]; then
             echo "Error: File with the same name has already been submitted"
+            log_event "Failed to submit assignment: file name already used"
 
         else
             echo "No file name issues"
         fi
 
+        for all_files in "$SUBMITTED_ASSIGNMENTS"/*; do
+            [[ "$all_files" == "$CHECK_FILE" ]] && continue
+            if cmp -s "$CHECK_FILE" "$all_files"; then
+                echo "Match found!"
+                break
+            fi
+        done
+        echo "No match"
+
+        
     else
-        echo "Error: File does not exist!"
+        echo "Error: File does not exist in the base directory!"
         log_event "Failed to submit assignment: could not find in directory"
     fi
 }
