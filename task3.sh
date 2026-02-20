@@ -47,12 +47,18 @@ submit_assignment() {
     if [ -f "$CHECK_FILE" ]; then
         echo "Success: File exists."
 
+        DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
+        if [ -f "$DUPLICATE_FILE" ]; then
+            echo "Error: File with the same name has already been submitted"
+
+        else
+            echo "No file name issues"
+        fi
+
     else
         echo "Error: File does not exist!"
         log_event "Failed to submit assignment: could not find in directory"
     fi
-
-    DUPLICATE_FILE=""
 }
 
 exit() {
@@ -93,6 +99,7 @@ print_menu
 # Reads in an input from the user
 read -r -p "Please type in a valid number, and hit Enter to select a choice: " choice
 case "$choice" in
+1) submit_assignment;;
 5) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice!";;
