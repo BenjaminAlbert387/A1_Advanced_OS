@@ -36,7 +36,8 @@ print_menu() {
     echo "1: Create Submitted_Assignments Directory"
     echo "2: Submit Assignment"
     echo "3: Check Submitted Files"
-    echo "5: Exit"
+    echo "4: Check Submitted_Assignments Directory"
+    echo "9: Exit"
     echo "============================================================================================="
 }
 
@@ -160,7 +161,22 @@ check_submitted_files() {
     fi
     }
 
+check_submitted_assignments_directory() {
+    echo "============================================================================================="
+    # Creates a variable that has the relative path to Submitted_Assignments
+    CHECK_DIRECTORY="$BASE_DIR/Submitted_Assignments" 
 
+    # If it does not exist, then an error message will be outputted
+    if [ ! -d "$CHECK_DIRECTORY" ]; then
+        echo "Error: Submitted_Assignments directory does not exist!"
+        log_event "Failed to check directory: could not find Submitted_Assignments directory"
+
+    else
+        echo "All currently submitted files:"
+        ls $CHECK_DIRECTORY
+        log_event "Successfully checked Submitted_Assignments directory"
+    fi
+}
 
 exit() {
     # While loop only breaks if the user inputs Y or N
@@ -202,7 +218,8 @@ case "$choice" in
 1) create_submitted_assignments_directory;;
 2) submit_assignment;;
 3) check_submitted_files;;
-5) exit;;
+4) check_submitted_assignments_directory;;
+9) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice!";;
 esac

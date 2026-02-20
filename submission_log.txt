@@ -7,4 +7,6 @@
  2026 -02 -20 17:35:24 Submission test1.pdf uploaded successfully.
  2026 -02 -20 18:13:59 Checked submitted files: no files matched names
  2026 -02 -20 18:15:49 Checked submitted files: one or more files matched names
+ 2026 -02 -20 18:50:55 Successfully checked Submitted_Assignments directory
+ 2026 -02 -20 18:54:04 Failed to check directory: could not find Submitted_Assignments directory
  
