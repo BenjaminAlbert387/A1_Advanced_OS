@@ -150,7 +150,7 @@ check_submitted_files() {
             echo "File with the same name has already been submitted. Rename it."
             log_event "Checked submitted files: one or more files matched names"
         else
-            echo "No files had a matching name."
+            echo "No files submitted had a matching name."
             log_event "Checked submitted files: no files matched names"
         fi
 
@@ -201,6 +201,7 @@ read -r -p "Please type in a valid number, and hit Enter to select a choice: " c
 case "$choice" in
 1) create_submitted_assignments_directory;;
 2) submit_assignment;;
+3) check_submitted_files;;
 5) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice!";;
