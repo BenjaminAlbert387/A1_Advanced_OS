@@ -16,8 +16,11 @@ echo "Now working in: $(pwd)"
 
 # Initialisation
 
-# Creates a log file in the base directory
+# Creates a variable for the log file in the base directory
 SUBMISSION_LOG="$BASE_DIR/submission_log.txt"
+
+# Creates a variable for the submitted assigments directory
+SUBMITTED_ASSIGNMENTS="$BASE_DIR/Submitted_Assignments"
 
 # Function that generates a log of an event, stored in the variable SCHEDULER_LOG
 log_event() {
@@ -36,7 +39,20 @@ print_menu() {
 }
 
 submit_assignment() {
+    echo "============================================================================================="
+    read -r -p "Type the file name, including the .pdf part, and press Enter: " file
 
+    # Checks to see whether the file exists in the directory
+    CHECK_FILE="$BASE_DIR/$file"
+    if [ -f "$CHECK_FILE" ]; then
+        echo "Success: File exists."
+
+    else
+        echo "Error: File does not exist!"
+        log_event "Failed to submit assignment: could not find in directory"
+    fi
+
+    DUPLICATE_FILE=""
 }
 
 exit() {
@@ -68,8 +84,9 @@ exit() {
 }
 
 main () {
-    # Create the necessary log and job files when the program loads for the first time
+    # Create the necessary log and directory when the program loads for the first time
     touch "$SUBMISSION_LOG"
+    mkdir Submitted_Assignments
 
 while true; do
 print_menu
