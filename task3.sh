@@ -30,6 +30,25 @@ log_event() {
     printf "%s %s\n " "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "$SUBMISSION_LOG"
 }
 
+login_menu() {
+    echo "============================================================================================="
+    # Inital attempts and max attempts
+    MAX_ATTEMPTS=3
+    INITIAL_ATTEMPT=1
+
+    # While attempts is under 3
+    while [ $INITIAL_ATTEMPT -lt $MAX_ATTEMPTS ] do
+        read -p "Enter your username, then press Enter: " username
+        # Password input is hidden
+        read -sp "Enter your password, then press Enter: " password
+
+        # Checks if the login details are correct
+        if [[ "$username" == "cccu" && "$password" == "education1!" ]]; then
+            echo "Login successful"
+            main
+
+}
+
 print_menu() {
     echo "============================================================================================="
     echo "University Examination Board Main Menu:"
@@ -85,17 +104,17 @@ submit_assignment() {
         DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
         if [ -f "$DUPLICATE_FILE" ]; then
             echo "Error: File with the same name has already been submitted"
-            log_event "Failed to submit assignment: file name already used"
+            log_event "Failed to submit assignment "$file": file name already used"
 
         # Input validation 2: Check for supported file types
         elif [[ $CHECK_FILE != *".pdf"* && $CHECK_FILE != *".docx"* ]]; then
             echo "Error: File type not supported"
-            log_event "Failed to submit assignment: file type not supported"
+            log_event "Failed to submit assignment "$file": file type not supported"
 
         # Input validation 3: Check if the file is over 5MB
         elif [ "$size" -gt 5 ] ; then
             echo "Warning: File is over 5MB in size!"
-            log_event "Failed to submit assignment: file is over 5MB"
+            log_event "Failed to submit assignment "$file": file is over 5MB"
 
         else
             echo ""
@@ -113,7 +132,7 @@ submit_assignment() {
             # Input validation 4: Check for matching file contents
             if [[ "$remove_whitespace_check" == "$remove_whitespace_all" ]]; then
                 echo "Error: File has exact matching content found!"
-                log_event "Failed to submit assignment: exact matching content found"
+                log_event "Failed to submit assignment "$file": exact matching content found"
                 break
             fi
         done
@@ -227,4 +246,4 @@ echo
 done
 }
 
-main
+login_menu
