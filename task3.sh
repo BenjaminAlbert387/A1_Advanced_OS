@@ -124,9 +124,8 @@ exit() {
 }
 
 main () {
-    # Create the necessary log and directory when the program loads for the first time
+    # Create the necessary log file when the program loads for the first time
     touch "$SUBMISSION_LOG"
-    mkdir Submitted_Assignments
 
 while true; do
 print_menu
