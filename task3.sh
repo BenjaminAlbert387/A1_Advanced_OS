@@ -46,6 +46,7 @@ login_menu() {
         if [[ "$username" == "cccu" && "$password" == "education1!" ]]; then
             echo "Login successful"
             main
+        fi
 
 }
 
