@@ -88,6 +88,14 @@ submit_assignment() {
             fi
         done
 
+        echo "Uploading "$CHECK_FILE" now..."
+        sleep 2
+
+        # Transfer file to Submitted_Assignments directory
+        cp "$CHECK_FILE" Submitted_Assignments
+        echo "Successfully uploaded "$CHECK_FILE"!"
+        log_event "Submission "$CHECK_FILE" uploaded successfully"        
+
         
     else
         echo "Error: File does not exist in the base directory!"
@@ -126,6 +134,7 @@ exit() {
 main () {
     # Create the necessary log file when the program loads for the first time
     touch "$SUBMISSION_LOG"
+    mkdir Submitted_Assignments
 
 while true; do
 print_menu
