@@ -32,22 +32,45 @@ log_event() {
 
 login_menu() {
     echo "============================================================================================="
-    # Inital attempts and max attempts
-    MAX_ATTEMPTS=3
+    
+    # Initialises the max attempts and number of attempts
+    MAX_ATTEMPTS=4
     INITIAL_ATTEMPT=1
 
-    # While attempts is under 3
-    while [ $INITIAL_ATTEMPT -lt $MAX_ATTEMPTS ] do
+    # While the user still has attempts
+    while [[ "$INITIAL_ATTEMPT" -lt "$MAX_ATTEMPTS" ]]; do
         read -p "Enter your username, then press Enter: " username
-        # Password input is hidden
+
+        # User cannot see what they are typing for security
         read -sp "Enter your password, then press Enter: " password
 
-        # Checks if the login details are correct
-        if [[ "$username" == "cccu" && "$password" == "education1!" ]]; then
+        # Adds a new line after the user presses Enter
+        echo
+
+        # If the user input matches the hard coded username and password
+        if [[ "$username" == "cccu" && "$password" == "cccu1!" ]]; then
+
             echo "Login successful"
-            main
+            log_event "Login to program successful"
+
+            # Loads the examination board main menu after login
+            return
+        else
+
+            # Output error message to the user and attempts remaining
+            echo "Login failed"
+
+            log_event "Attempt $INITIAL_ATTEMPT: failed to login to program"
+            echo "Attempt $INITIAL_ATTEMPT of 3 used!"
         fi
 
+        # Increments the inital attempt counter by 1 for each unsuccessful attempt
+        ((INITIAL_ATTEMPT++))
+    done
+
+    # Terminates the program if the user reaches the maximum password attempts 
+    echo "You have reached the maximum attempts! The system has been locked."
+    kill $$
 }
 
 print_menu() {
@@ -57,7 +80,7 @@ print_menu() {
     echo "2: Submit Assignment"
     echo "3: Check Submitted Files"
     echo "4: Check Submitted_Assignments Directory"
-    echo "9: Exit"
+    echo "5: Exit"
     echo "============================================================================================="
 }
 
@@ -231,6 +254,7 @@ main () {
     touch "$SUBMISSION_LOG"
 
 while true; do
+login_menu
 print_menu
 # Reads in an input from the user
 read -r -p "Please type in a valid number, and hit Enter to select a choice: " choice
@@ -239,7 +263,7 @@ case "$choice" in
 2) submit_assignment;;
 3) check_submitted_files;;
 4) check_submitted_assignments_directory;;
-9) exit;;
+5) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice!";;
 esac
@@ -247,4 +271,4 @@ echo
 done
 }
 
-login_menu
+main

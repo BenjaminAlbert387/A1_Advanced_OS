@@ -9,4 +9,63 @@
  2026 -02 -20 18:15:49 Checked submitted files: one or more files matched names
  2026 -02 -20 18:50:55 Successfully checked Submitted_Assignments directory
  2026 -02 -20 18:54:04 Failed to check directory: could not find Submitted_Assignments directory
+ 2026 -02 -20 19:58:18 Attempt 1 failed to login
+ 2026 -02 -20 20:01:07 Attempt 1: failed to login to program
+ 2026 -02 -20 20:01:51 Attempt 1: failed to login to program
+ 2026 -02 -20 20:02:28 Attempt 1: failed to login to program
+ 2026 -02 -20 20:02:30 Attempt 1: failed to login to program
+ 2026 -02 -20 20:02:32 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:07 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:08 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:11 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:12 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:12 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:12 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:13 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:13 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:14 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:14 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:15 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:15 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:16 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:16 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:16 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:28 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:29 Attempt 1: failed to login to program
+ 2026 -02 -20 20:03:29 Attempt 1: failed to login to program
+ 2026 -02 -20 20:04:09 Attempt 1: failed to login to program
+ 2026 -02 -20 20:04:10 Attempt 1: failed to login to program
+ 2026 -02 -20 20:05:53 Attempt 1: failed to login to program
+ 2026 -02 -20 20:05:55 Attempt 1: failed to login to program
+ 2026 -02 -20 20:06:55 Attempt 1: failed to login to program
+ 2026 -02 -20 20:07:58 Attempt 1: failed to login to program
+ 2026 -02 -20 20:08:02 Attempt 1: failed to login to program
+ 2026 -02 -20 20:08:26 Attempt 1: failed to login to program
+ 2026 -02 -20 20:10:02 Attempt 1: failed to login to program
+ 2026 -02 -20 20:11:17 Attempt 1: failed to login to program
+ 2026 -02 -20 20:14:09 Attempt 1: failed to login to program
+ 2026 -02 -20 20:16:07 Attempt 1: failed to login to program
+ 2026 -02 -20 20:16:09 Attempt 2: failed to login to program
+ 2026 -02 -20 20:16:29 Attempt 1: failed to login to program
+ 2026 -02 -20 20:16:30 Attempt 2: failed to login to program
+ 2026 -02 -20 20:16:32 Attempt 3: failed to login to program
+ 2026 -02 -20 20:17:57 Login to program successful
+ 2026 -02 -20 20:18:58 Login to program successful
+ 2026 -02 -20 20:24:06 Login to program successful
+ 2026 -02 -20 20:24:52 Login to program successful
+ 2026 -02 -20 20:25:32 Attempt 1: failed to login to program
+ 2026 -02 -20 20:25:41 Attempt 2: failed to login to program
+ 2026 -02 -20 20:25:52 Login to program successful
+ 2026 -02 -20 20:26:31 Attempt 1: failed to login to program
+ 2026 -02 -20 20:26:34 Attempt 2: failed to login to program
+ 2026 -02 -20 20:26:38 Attempt 3: failed to login to program
  
