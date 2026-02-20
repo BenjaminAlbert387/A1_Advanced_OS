@@ -33,9 +33,37 @@ log_event() {
 print_menu() {
     echo "============================================================================================="
     echo "University Examination Board Main Menu:"
-    echo "1: Submit Assignment"
+    echo "1: Create Submitted_Assignments Directory"
+    echo "2: Submit Assignment"
     echo "5: Exit"
     echo "============================================================================================="
+}
+
+create_submitted_assignments_directory() {
+    echo "============================================================================================="
+    echo "This will make an Submitted_Assignments directory in your current location."
+
+    # Requires the user to type Y or y to confirm termination
+    read -r -p "Type Y and press Enter to confirm: " ans
+
+    if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
+        echo "Cancelled Submitted_Assignments directory creation."
+        log_event "Cancelled Submitted_Assignments directory creation"
+        return
+    fi
+
+    # Creates a variable that has the relative path to Submitted_Assignments
+    CHECK_DIRECTORY="$BASE_DIR/Submitted_Assignments" 
+
+    # If it matches, then the directory already exists and an error message will be outputted
+    if [ -d "$CHECK_DIRECTORY" ]; then
+        echo "Error: $CHECK_DIRECTORY already exists!"
+        log_event "Failed to make Submitted_Assignments directory: already exists"
+
+    else
+    mkdir -v Submitted_Assignments
+    log_event "Successfully created Submitted_Assignments directory"
+    fi
 }
 
 submit_assignment() {
@@ -134,14 +162,14 @@ exit() {
 main () {
     # Create the necessary log file when the program loads for the first time
     touch "$SUBMISSION_LOG"
-    mkdir Submitted_Assignments
 
 while true; do
 print_menu
 # Reads in an input from the user
 read -r -p "Please type in a valid number, and hit Enter to select a choice: " choice
 case "$choice" in
-1) submit_assignment;;
+1) create_submitted_assignments_directory;;
+2) submit_assignment;;
 5) exit;;
 # If none of the above numbers were inputted, output an error message
 *) echo "Error: Invalid choice!";;
