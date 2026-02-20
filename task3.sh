@@ -29,9 +29,14 @@ log_event() {
 
 print_menu() {
     echo "============================================================================================="
-    echo "University High Performance Computing Laboratory Main Menu:"
+    echo "University Examination Board Main Menu:"
+    echo "1: Submit Assignment"
     echo "5: Exit"
     echo "============================================================================================="
+}
+
+submit_assignment() {
+
 }
 
 exit() {

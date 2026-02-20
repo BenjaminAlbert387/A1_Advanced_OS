@@ -175,9 +175,9 @@ view_completed_jobs() {
         echo "$content"
         log_event "Read completed jobs file" 
     else 
-        echo "Warning: Read completed jobs file not found. It will be created now."
+        echo "Warning: Completed jobs file not found. It will be created now."
 
-        # Creates a new Read completed jobs file if the user deletes the previous one
+        # Creates a new completed jobs file if the user deletes the previous one
         touch "$COMPLETED_JOBS"
         log_event "Read completed jobs file made after attempt to check a non existing file"
     fi
