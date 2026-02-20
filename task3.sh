@@ -68,7 +68,7 @@ submit_assignment() {
             log_event "Failed to submit assignment: file is over 5MB"
 
         else
-            echo "No file name issues"
+            echo ""
         fi
 
         for all_files in "$SUBMITTED_ASSIGNMENTS"/*; do
@@ -88,13 +88,13 @@ submit_assignment() {
             fi
         done
 
-        echo "Uploading "$CHECK_FILE" now..."
+        echo "Uploading "$file" now..."
         sleep 2
 
         # Transfer file to Submitted_Assignments directory
         cp "$CHECK_FILE" Submitted_Assignments
-        echo "Successfully uploaded "$CHECK_FILE"!"
-        log_event "Submission "$CHECK_FILE" uploaded successfully"        
+        echo "Successfully uploaded "$file"!"
+        log_event "Submission "$file" uploaded successfully."        
 
         
     else
