@@ -44,29 +44,46 @@ submit_assignment() {
 
     # Checks to see whether the file exists in the directory
     CHECK_FILE="$BASE_DIR/$file"
+
+    # Gets the size of the file in MB
+    size=$(du -sm "$CHECK_FILE" | cut -f 1)
+
     if [ -f "$CHECK_FILE" ]; then
         echo "Success: File exists in the base directory."
 
-        # Checks to see if the file names are matching
+        # Input validation 1: Check for matching file names
         DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
         if [ -f "$DUPLICATE_FILE" ]; then
             echo "Error: File with the same name has already been submitted"
             log_event "Failed to submit assignment: file name already used"
+
+        # Input validation 2: Check for supported file types
+        elif [[ $CHECK_FILE != *".pdf"* && $CHECK_FILE != *".docx"* ]]; then
+            echo "Error: File type not supported"
+            log_event "Failed to submit assignment: file type not supported"
+
+        # Input validation 3: Check if the file is over 5MB
+        elif [ "$size" -gt 5 ] ; then
+            echo "Warning: File is over 5MB in size!"
+            log_event "Failed to submit assignment: file is over 5MB"
 
         else
             echo "No file name issues"
         fi
 
         for all_files in "$SUBMITTED_ASSIGNMENTS"/*; do
+            # Prevents the file checking itself
             [[ "$all_files" == "$CHECK_FILE" ]] && continue
 
-            # Remove all whitespace
+            # Removes all whitespace in both files
+            # tr -d deletes any spaces, tabs and line breaks in each file
             remove_whitespace_check=$(tr -d '[:space:]' < "$CHECK_FILE")
             remove_whitespace_all=$(tr -d '[:space:]' < "$all_files")
 
+            # Input validation 4: Check for matching file contents
             if [[ "$remove_whitespace_check" == "$remove_whitespace_all" ]]; then
                 echo "Error: File has exact matching content found!"
-                log_event "Failed to upload assignment: exact matching content found"
+                log_event "Failed to submit assignment: exact matching content found"
                 break
             fi
         done
