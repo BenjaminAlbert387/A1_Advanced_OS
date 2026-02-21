@@ -137,7 +137,7 @@ submit_assignment() {
 
         # Input validation 3: Check if the file is over 5MB
         elif [ "$size" -gt 5 ] ; then
-            echo "Warning: File is over 5MB in size!"
+            echo "Error: File is over 5MB in size!"
             log_event "Failed to submit assignment "$file": file is over 5MB"
 
         else

@@ -73,7 +73,8 @@ def submit_assigment_function():
             print("Error: File type not supported")
 
         # Input validation 3: Check if the file is over 5MB
-
+        if size_file > 5 * 1000000:
+            print("Error: File is over 5MB in size!")
         
     else:
         print("Error: file does not exist in base directory")
