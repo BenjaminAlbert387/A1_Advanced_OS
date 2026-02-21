@@ -153,4 +153,30 @@
  2026 -02 -21 19:38:06  
  2026 -02 -21 19:38:06 1771632000
  2026 -02 -21 19:38:06 1771632000
+ 2026 -02 -21 19:43:38 Attempt 1: failed to login to program
+ 2026 -02 -21 19:43:38 2026-02-21 19:43:38
+ 2026 -02 -21 19:43:38 1771703018
+ 2026 -02 -21 19:43:38 1771703018
+ 2026 -02 -21 19:43:45 Attempt 2: failed to login to program
+ 2026 -02 -21 19:43:45 2026-02-21 19:43:45
+ 2026 -02 -21 19:43:45 1771703025
+ 2026 -02 -21 19:43:45 1771703018
+ 2026 -02 -21 19:43:49 Attempt 3: failed to login to program
+ 2026 -02 -21 19:43:49 2026-02-21 19:43:49
+ 2026 -02 -21 19:43:49 1771703029
+ 2026 -02 -21 19:43:49 1771703018
+ 2026 -02 -21 19:43:49 User attempted to login three times within 60 seconds
+ 2026 -02 -21 19:53:36 Attempt 1: failed to login to program
+ 2026 -02 -21 19:53:36 1771703616
+ 2026 -02 -21 19:53:39 Attempt 2: failed to login to program
+ 2026 -02 -21 19:53:39 1771703619
+ 2026 -02 -21 19:53:41 Attempt 3: failed to login to program
+ 2026 -02 -21 19:53:41 1771703621
+ 2026 -02 -21 19:53:41 User attempted to login three times within 60 seconds
+ 2026 -02 -21 19:55:01 Attempt 1: failed to login to program
+ 2026 -02 -21 19:55:01 1771703701
+ 2026 -02 -21 19:55:03 Attempt 2: failed to login to program
+ 2026 -02 -21 19:55:03 1771703703
+ 2026 -02 -21 19:58:13 Attempt 3: failed to login to program
+ 2026 -02 -21 19:58:13 1771703893
  

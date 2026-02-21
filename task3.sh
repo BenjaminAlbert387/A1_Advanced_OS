@@ -63,31 +63,34 @@ login_menu() {
             log_event "Attempt $INITIAL_ATTEMPT: failed to login to program"
             echo "Attempt $INITIAL_ATTEMPT of 3 used!"
 
-            # Extract timestamp immediately
+            # Variable that stores the current time
             TIME_STAMP="$(date '+%Y-%m-%d %H:%M:%S')"
 
-            # Then store the number of seconds
+            # Variable that stores TIME_STAMP in seconds
             EPOCH=$(date +%s)
-
-            log_event "$TIME_STAMP"
             log_event "$EPOCH"
 
-            # Store the timestamp
+            # Store the epoch in an array
             ATTEMPT_TIME+=("$EPOCH")
-            log_event "${ATTEMPT_TIME[@]}"
 
-
-            # Checks if there are three attempts stored
+            # Check if there are three times in the ATTEMPT_TIME array
             if [ ${#ATTEMPT_TIME[@]} -eq 3 ]; then 
 
-                first=${ATTEMPT_TIME[0]} 
-                third=${ATTEMPT_TIME[2]}
+                # Variable that stores the first attempt time in the ATTEMPT_TIME array
+                FIRST_ATTEMPT_TIME=${ATTEMPT_TIME[0]} 
 
-                if (( third - first <= 60 )); then 
+                # Variable that stores the first attempt time in the ATTEMPT_TIME array
+                THIRD_ATTEMPT_TIME=${ATTEMPT_TIME[2]}
+
+                # If the difference between attempt times is under 60 seconds
+                if (( THIRD_ATTEMPT_TIME - FIRST_ATTEMPT_TIME <= 60 )); then 
+
+                    # Output additional messages and log events
                     echo "Suspicious activity detected"
                     log_event "User attempted to login three times within 60 seconds" 
+
                 fi 
-                # Reset for next cycle 
+                # Reset array for next cycle 
                 ATTEMPT_TIME=() 
             fi
         fi
