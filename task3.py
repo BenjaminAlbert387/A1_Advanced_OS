@@ -32,18 +32,18 @@ def create_submitted_assigments_py_directory_function():
         
         # Python class that is true if the directory already exists
         except FileExistsError:
-            print(f"Directory '{directory_name}' already exists.")
+            print(f"Error: Directory '{directory_name}' already exists.")
         except PermissionError:
-            print(f"Permission denied: Unable to create '{directory_name}'.")
+            print(f"Error: Permission denied, unable to create '{directory_name}'.")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"Error: Other error occurred: {e}")
 
         menu_function()
 
 def submit_assigment_function():
-    file = input("Type the file name, including the .pdf part, and press Enter:")
-    check_file = BASE_DIR/file
-    if check_file == True:
+    file = input("Type the file name, including the .pdf part, and press Enter: ")
+    check_file = os.path.join(BASE_DIR, file)
+    if os.path.exists(check_file) == True:
         print("File exists in the base directory")
 
     else:
@@ -57,7 +57,7 @@ def menu_function():
     print("3: Check Submitted Files")
     print("4: Check Submitted_Assignments Directory")
     print("5: Exit")
-    choice = int(input("Type in a valid integer from the main menu:"))
+    choice = int(input("Type in a valid integer from the main menu: "))
     print("=======================================================================================")
 
     if choice != 1 and choice != 2 and choice != 3 and choice != 4 and choice != 5:
@@ -68,6 +68,9 @@ def menu_function():
         print("Valid option")
 
         if choice == 1:
-             create_submitted_assigments_py_directory_function()
+            create_submitted_assigments_py_directory_function()
+
+        if choice == 2:
+            submit_assigment_function()
 
 menu_function()
