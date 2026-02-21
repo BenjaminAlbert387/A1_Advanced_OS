@@ -68,4 +68,22 @@
  2026 -02 -20 20:26:31 Attempt 1: failed to login to program
  2026 -02 -20 20:26:34 Attempt 2: failed to login to program
  2026 -02 -20 20:26:38 Attempt 3: failed to login to program
+ 2026-02-21 18:09:35 Checked submitted files: one or more files matched names
+2026-02-21 18:18:51 Checked submitted files: no files matched names
+2026 -02 -21 18:40:31 Login to program successful
+ 2026 -02 -21 18:41:17 Login to program successful
+ 2026 -02 -21 18:41:39 Failed to check directory: could not find Submitted_Assignments directory
+ 2026 -02 -21 18:42:04 Login to program successful
+ 2026 -02 -21 18:42:08 Successfully created Submitted_Assignments directory
+ 2026 -02 -21 18:42:47 Login to program successful
+ 2026 -02 -21 18:42:55 Checked submitted files: no files matched names
+ 2026 -02 -21 18:43:45 Submit assignment test.pdf for student 1001: Status: pass
+ 2026 -02 -21 18:44:55 Login to program successful
+ 2026 -02 -21 18:45:28 Failed to submit assignment: user submitted invalid student ID
+ 2026 -02 -21 18:47:19 Login to program successful
+ 2026 -02 -21 18:47:22 Failed to submit assignment: user submitted invalid student ID
+ 2026 -02 -21 18:49:39 Login to program successful
+ 2026 -02 -21 18:53:06 Login to program successful
+ 2026 -02 -21 18:53:09 Failed to submit assignment: user submitted letters instead of integers
+ 2026 -02 -21 18:54:23 Submit assignment test.pdf for student 1001: Status: pass
  

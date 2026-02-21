@@ -113,6 +113,25 @@ create_submitted_assignments_directory() {
 
 submit_assignment() {
     echo "============================================================================================="
+    read -rp "Enter your student ID, which is a number over 1000, then press Enter: " id
+
+    if [[ -z "$id" ]] ; then
+    echo "Error: student ID is blank!"
+    log_event "Failed to submit assignment: user submitted a blank student ID"
+    return
+
+    elif [[ -n ${id//[0-9]/} ]]; then
+    echo "Error: student ID entered was not an integer"
+    log_event "Failed to submit assignment: user submitted letters instead of integers"
+
+    elif [ "$id" -lt 1001 ] ; then
+    echo "Error: student ID must be a number over 1000."
+    log_event "Failed to submit assignment: user submitted invalid student ID"
+    return
+
+    else
+    echo "Student ID accepted"
+
     read -r -p "Type the file name, including the .pdf part, and press Enter: " file
 
     # Checks to see whether the file exists in the directory
@@ -128,17 +147,17 @@ submit_assignment() {
         DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
         if [ -f "$DUPLICATE_FILE" ]; then
             echo "Error: File with the same name has already been submitted"
-            log_event "Failed to submit assignment "$file": file name already used"
+            log_event "Submit assignment "$file" for "$id": Status: fail (file name already used)"
 
         # Input validation 2: Check for supported file types
         elif [[ $CHECK_FILE != *".pdf"* && $CHECK_FILE != *".docx"* ]]; then
             echo "Error: File type not supported"
-            log_event "Failed to submit assignment "$file": file type not supported"
+            log_event "Submit assignment "$file" for "$id": Status: fail (file type not supported)"
 
         # Input validation 3: Check if the file is over 5MB
         elif [ "$size" -gt 5 ] ; then
             echo "Error: File is over 5MB in size!"
-            log_event "Failed to submit assignment "$file": file is over 5MB"
+            log_event "Submit assignment "$file" for "$id": Status: fail (file is over 5MB)"
 
         else
             echo ""
@@ -156,7 +175,7 @@ submit_assignment() {
             # Input validation 4: Check for matching file contents
             if [[ "$remove_whitespace_check" == "$remove_whitespace_all" ]]; then
                 echo "Error: File has exact matching content found!"
-                log_event "Failed to submit assignment "$file": exact matching content found"
+                log_event "Submit assignment "$file" for "$id": Status: fail (exact match found)"
                 break
             fi
         done
@@ -169,12 +188,13 @@ submit_assignment() {
 
         # Output success message to the user and logs event
         echo "Successfully uploaded "$file"!"
-        log_event "Submission "$file" uploaded successfully."        
+        log_event "Submit assignment "$file" for student "$id": Status: pass"        
 
-        
     else
         echo "Error: File does not exist in the base directory!"
         log_event "Failed to submit assignment: could not find in directory"
+    fi
+    # fi below ends the student ID validation for loop
     fi
 }
 
@@ -194,7 +214,7 @@ check_submitted_files() {
             echo "File with the same name has already been submitted. Rename it."
             log_event "Checked submitted files: one or more files matched names"
         else
-            echo "No files submitted had a matching name."
+            echo "No files previously submitted had a matching name."
             log_event "Checked submitted files: no files matched names"
         fi
 
@@ -254,7 +274,6 @@ main () {
     touch "$SUBMISSION_LOG"
 
 while true; do
-login_menu
 print_menu
 # Reads in an input from the user
 read -r -p "Please type in a valid number, and hit Enter to select a choice: " choice
@@ -271,4 +290,5 @@ echo
 done
 }
 
+login_menu
 main

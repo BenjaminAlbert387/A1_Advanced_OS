@@ -36,10 +36,10 @@ def log_event(msg):
 
 def create_submitted_assignments_py_directory_function():
 
-        # Specify the directory name
+        # Specifies the directory name
         directory_name = "Submitted_Assignments_Py"
 
-        # Create the directory
+        # Creates the directory
         try:
             os.mkdir(directory_name)
 
@@ -67,10 +67,11 @@ def create_submitted_assignments_py_directory_function():
 def submit_assignment_function():
     if os.path.isdir("Submitted_Assignments_Py") == False:
         print("Error: Please create Submitted_Assignments_Py first!")
+        log_event("Failed to submit assignment: missing Submitted_Assignments_Py directory")
         menu_function()
 
     # User inputs the file name
-    file = input("Type the file name, including the .pdf part, and press Enter: ")
+    file = input("Type the file name you want to upload, including the .pdf part, and press Enter: ")
 
     # Variable that stores the path of the base directory and file name inputted
     check_file = os.path.join(BASE_DIR, file)
@@ -90,16 +91,19 @@ def submit_assignment_function():
         for files in os.listdir("Submitted_Assignments_Py"):
             if fnmatch.fnmatch(file, files):
                 print("Error: File with the same name has already been submitted")
+                log_event("Failed to submit assignment: file name already used")
                 menu_function()
 
         # Input validation 2: Check for supported file types
         if ext_file != ".docx" and ext_file != ".pdf":
             print("Error: File type not supported")
+            log_event("Failed to submit assignment: file type not supported")
             menu_function()
 
         # Input validation 3: Check if the file is over 5MB
         if size_file > 5 * 1000000:
             print("Error: File is over 5MB in size!")
+            log_event("Failed to submit assignment: file is over 5MB")
             menu_function()
 
         # Input validation 4: Check for matching file contents
@@ -113,6 +117,7 @@ def submit_assignment_function():
                 # If the file contents match any file in Submitted_Assignments_Py
                 if filecmp.cmp(check_file, full_path, shallow=False):
                     print("Error: File has exact matching content found!")
+                    print("Failed to submit assignment: exact matching content found")
                     menu_function()
 
         print(f"Uploading {file} now...")
@@ -121,12 +126,51 @@ def submit_assignment_function():
         # Moves a copy of the file to the Submitted_Assignments_Py
         source_file = os.path.join(BASE_DIR, file)
         destination_file = os.path.join(BASE_DIR, "Submitted_Assignments_Py")
+
+        # Copies the file, so it still remains on the base directory
         shutil.copy(source_file, destination_file)
 
+        # Outputs success message to the user and logs the event
         print(f"Successfully uploaded {file}!")
+        log_event("Submission uploaded successfully")
+        menu_function()
 
     else:
         print("Error: file does not exist in base directory")
+        log_event("Failed to submit assignment: file not found in base directory")
+        menu_function()
+
+def check_submitted_files_function():
+    if os.path.isdir("Submitted_Assignments_Py") == False:
+        print("Error: Please create Submitted_Assignments_Py first!")
+        log_event("Failed to submit assignment: missing Submitted_Assignments_Py directory")
+        menu_function()
+
+    # User inputs the file name
+    file = input("Type the file name you want to check, including the .pdf part, and press Enter: ")
+
+    # Variable that stores the path of the base directory and file name inputted
+    check_file = os.path.join(BASE_DIR, file)
+
+    # Checks to see whether the file exists in the base directory 
+    if os.path.exists(check_file) == True:
+        print("File exists in the base directory")
+
+        # Input validation 1: Check for matching file names
+        for files in os.listdir("Submitted_Assignments_Py"):
+            if fnmatch.fnmatch(file, files):
+                print("File with the same name has already been submitted. Rename it.")
+                log_event("Checked submitted files: one or more files matched names")
+                menu_function()
+            else:
+                print("No files previously submitted had a matching name.")
+                log_event("Checked submitted files: no files matched names")
+                menu_function()
+
+        else:
+            print("Error: file does not exist in base directory")
+            log_event("Failed to submit assignment: file not found in base directory")
+            menu_function()
 
 def menu_function():
     while True:
@@ -140,7 +184,7 @@ def menu_function():
             print("5: Exit")
             print("====================================================================================")
     
-            choice = int(input("Type in a valid integer from the main menu: "))
+            choice = int(input("Please type in a valid number, and hit Enter to select a choice: "))
 
             if choice == 1:
                 create_submitted_assignments_py_directory_function()
@@ -148,6 +192,8 @@ def menu_function():
             elif choice == 2:
                 submit_assignment_function()
 
+            elif choice == 3:
+                check_submitted_files_function()
             else:
                 print("Error: not a valid menu choice")
             
