@@ -5,6 +5,9 @@
 import os
 import sys
 import fnmatch
+import filecmp
+import time
+import shutil
 
 # Get the directory where this script is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,10 +22,10 @@ except Exception as e:
 # Output working directory
 print("Now working in:", os.getcwd())
 
-def create_submitted_assigments_py_directory_function():
+def create_submitted_assignments_py_directory_function():
 
         # Specify the directory name
-        directory_name = "Submitted_Assigments_Py"
+        directory_name = "Submitted_Assignments_Py"
 
         # Create the directory
         try:
@@ -41,9 +44,9 @@ def create_submitted_assigments_py_directory_function():
 
         menu_function()
 
-def submit_assigment_function():
-    if os.path.isdir("Submitted_Assigments_Py") == False:
-        print("Error: Please create Submitted_Assigments_Py first!")
+def submit_assignment_function():
+    if os.path.isdir("Submitted_Assignments_Py") == False:
+        print("Error: Please create Submitted_Assignments_Py first!")
         menu_function()
 
     # User inputs the file name
@@ -64,46 +67,71 @@ def submit_assigment_function():
         print("File exists in the base directory")
 
         # Input validation 1: Check for matching file names
-        for files in os.listdir("Submitted_Assigments_Py"):
+        for files in os.listdir("Submitted_Assignments_Py"):
             if fnmatch.fnmatch(file, files):
                 print("Error: File with the same name has already been submitted")
+                menu_function()
 
         # Input validation 2: Check for supported file types
-        if ext_file != ".docx" or ext_file != ".pdf":
+        if ext_file != ".docx" and ext_file != ".pdf":
             print("Error: File type not supported")
+            menu_function()
 
         # Input validation 3: Check if the file is over 5MB
         if size_file > 5 * 1000000:
             print("Error: File is over 5MB in size!")
-        
+            menu_function()
+
+        # Input validation 4: Check for matching file contents
+        # For each file in Submitted_Assignments_Py directory
+        for files in os.listdir("Submitted_Assignments_Py"):
+
+            # Variable that stores the full path of files in Submitted_Assignments_Py
+            full_path = os.path.join("Submitted_Assignments_Py", files)
+
+            if os.path.isfile(full_path):
+                # If the file contents match any file in Submitted_Assignments_Py
+                if filecmp.cmp(check_file, full_path, shallow=False):
+                    print("Error: File has exact matching content found!")
+                    menu_function()
+
+        print(f"Uploading {file} now...")
+        time.sleep(2)
+
+        # Moves a copy of the file to the Submitted_Assignments_Py
+        source_file = os.path.join(BASE_DIR, file)
+        destination_file = os.path.join(BASE_DIR, "Submitted_Assignments_Py")
+        shutil.copy(source_file, destination_file)
+
+        print(f"Successfully uploaded {file}!")
+
     else:
         print("Error: file does not exist in base directory")
 
 def menu_function():
-    print("=======================================================================================")
-    print("University Examination Board Main Menu:")
-    print("1: Create Submitted_Assignments Directory")
-    print("2: Submit Assignment")
-    print("3: Check Submitted Files")
-    print("4: Check Submitted_Assignments Directory")
-    print("5: Exit")
-    choice = int(input("Type in a valid integer from the main menu: "))
-    print("=======================================================================================")
-
     while True:
         try:
-            choice = int(input("Enter a number: "))
-            break
+            print("====================================================================================")
+            print("University Examination Board Main Menu:")
+            print("1: Create Submitted_Assignments Directory")
+            print("2: Submit Assignment")
+            print("3: Check Submitted Files")
+            print("4: Check Submitted_Assignments Directory")
+            print("5: Exit")
+            print("====================================================================================")
+    
+            choice = int(input("Type in a valid integer from the main menu: "))
+
+            if choice == 1:
+                create_submitted_assignments_py_directory_function()
+
+            elif choice == 2:
+                submit_assignment_function()
+
+            else:
+                print("Error: not a valid menu choice")
+            
         except ValueError:
             print("Error: Invalid input!")
-
-        if choice == 1:
-            create_submitted_assigments_py_directory_function()
-
-        elif choice == 2:
-            submit_assigment_function()
-
-        else:
-            print("Error: not a valid menu choice")
 
 menu_function()
