@@ -4,6 +4,7 @@
 # Initialisation: import classes when the program is run
 import os
 import sys
+import fnmatch
 
 # Get the directory where this script is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -41,10 +42,19 @@ def create_submitted_assigments_py_directory_function():
         menu_function()
 
 def submit_assigment_function():
+    # User inputs the file name
     file = input("Type the file name, including the .pdf part, and press Enter: ")
+
+    # Variable that stores the path of the base directory and file name inputted
     check_file = os.path.join(BASE_DIR, file)
+
+    # Checks to see whether the file exists in the base directory 
     if os.path.exists(check_file) == True:
         print("File exists in the base directory")
+
+        for files in os.listdir("Submitted_Assigments_Py"):
+            if fnmatch.fnmatch(file, files):
+                print("Error: File with the same name has already been submitted")
 
     else:
         print("Error: file does not exist in base directory")
