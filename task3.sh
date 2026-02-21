@@ -33,9 +33,10 @@ log_event() {
 login_menu() {
     echo "============================================================================================="
     
-    # Initialises the max attempts and number of attempts
+    # Initialises the max attempts, number of attempts and attempt time
     MAX_ATTEMPTS=4
     INITIAL_ATTEMPT=1
+    ATTEMPT_TIME=()
 
     # While the user still has attempts
     while [[ "$INITIAL_ATTEMPT" -lt "$MAX_ATTEMPTS" ]]; do
@@ -55,13 +56,40 @@ login_menu() {
 
             # Loads the examination board main menu after login
             return
-        else
 
+        else
             # Output error message to the user and attempts remaining
             echo "Login failed"
-
             log_event "Attempt $INITIAL_ATTEMPT: failed to login to program"
             echo "Attempt $INITIAL_ATTEMPT of 3 used!"
+
+            # Extract timestamp immediately
+            TIME_STAMP="$(date '+%Y-%m-%d %H:%M:%S')"
+
+            # Then store the number of seconds
+            EPOCH=$(date +%s)
+
+            log_event "$TIME_STAMP"
+            log_event "$EPOCH"
+
+            # Store the timestamp
+            ATTEMPT_TIME+=("$EPOCH")
+            log_event "${ATTEMPT_TIME[@]}"
+
+
+            # Checks if there are three attempts stored
+            if [ ${#ATTEMPT_TIME[@]} -eq 3 ]; then 
+
+                first=${ATTEMPT_TIME[0]} 
+                third=${ATTEMPT_TIME[2]}
+
+                if (( third - first <= 60 )); then 
+                    echo "Suspicious activity detected"
+                    log_event "User attempted to login three times within 60 seconds" 
+                fi 
+                # Reset for next cycle 
+                ATTEMPT_TIME=() 
+            fi
         fi
 
         # Increments the inital attempt counter by 1 for each unsuccessful attempt
