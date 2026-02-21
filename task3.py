@@ -1,9 +1,10 @@
 # Use python {path to the file}/task.py in powershell terminal, then press Enter to run
 # For example: python C:\Users\benja\Documents\GitHub\A1_Advanced_OS\task3.py
 
-# Initialisation: import classes when the program is run
+# Initialisation: import modules when the program is run
 import os
 import sys
+from datetime import datetime
 import fnmatch
 import filecmp
 import time
@@ -22,6 +23,17 @@ except Exception as e:
 # Output working directory
 print("Now working in:", os.getcwd())
 
+def log_event(msg):
+    # Creates submission_log.txt if it does not exist, else open and prepare to append it
+    open("submission_log.txt", "a")
+
+    # Variable that stores the date and time in a readable format
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+
+    # Append submission_log.txt with timestamp and msg variables in a formatted string
+    with open("submission_log.txt", "a", encoding="utf-8") as f: 
+        f.write(f"{timestamp} {msg}\n")
+
 def create_submitted_assignments_py_directory_function():
 
         # Specify the directory name
@@ -33,14 +45,22 @@ def create_submitted_assignments_py_directory_function():
 
             # Ouptut success message to the user
             print(f"Directory '{directory_name}' created successfully.")
+            log_event("Submitted_Assignments_Py created successfully")
         
         # Python class that is true if the directory already exists
         except FileExistsError:
             print(f"Error: Directory '{directory_name}' already exists.")
+            log_event("Failed to create Submitted_Assignments_Py: already exists")
+
+        # Python class that is true if the user does not have permissions
         except PermissionError:
             print(f"Error: Permission denied, unable to create '{directory_name}'.")
+            log_event("Failed to create Submitted_Assignments_Py: permission denied")
+
+        # Python class that is true for any other error
         except Exception as e:
             print(f"Error: Other error occurred: {e}")
+            log_event("Failed to create Submitted_Assignments_Py: exception error")
 
         menu_function()
 
