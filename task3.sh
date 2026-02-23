@@ -212,15 +212,15 @@ submit_assignment() {
             fi
         done
 
-        echo "Uploading "$file" now..."
-        sleep 2
+    echo "Uploading "$file" now..."
+    sleep 2
 
-        # Transfer file to Submitted_Assignments directory
-        cp "$CHECK_FILE" Submitted_Assignments
+    # Transfer file to Submitted_Assignments directory
+    cp "$CHECK_FILE" Submitted_Assignments
 
-        # Output success message to the user and logs event
-        echo "Successfully uploaded "$file"!"
-        log_event "Submit assignment "$file" for student "$id": Status: pass"        
+    # Output success message to the user and logs event
+    echo "Successfully uploaded "$file"!"
+    log_event "Submit assignment "$file" for student "$id": Status: pass"        
 
     else
         echo "Error: File does not exist in the base directory!"
