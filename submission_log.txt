@@ -3,4 +3,11 @@
  2026 -02 -23 16:43:26 Submit assignment test2.pdf for 1006: Status: fail (exact match found)
  2026 -02 -23 16:49:05 Login to program successful
  2026 -02 -23 16:49:31 Failed to submit assignment: could not find in directory
+ 2026 -02 -23 16:51:53 Login to program successful
+ 2026 -02 -23 16:51:58 Failed to submit assignment: user submitted letters instead of integers
+ 2026 -02 -23 16:52:08 Failed to submit assignment: could not find in directory
+ 2026 -02 -23 16:54:01 Attempt 1: failed to login to program
+ 2026 -02 -23 16:54:01 1771865641
+ 2026 -02 -23 16:54:07 Login to program successful
+ 2026 -02 -23 16:54:17 Submit assignment test2.pdf for student 1008: Status: pass
  

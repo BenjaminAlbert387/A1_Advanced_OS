@@ -149,16 +149,16 @@ def submit_assignment_function():
     # Variable that stores the path of the base directory and file name inputted
     check_file = os.path.join(BASE_DIR, file)
 
-    # Variable that stores the extension of the file name inputted
-    ext_file = os.path.splitext(file)[-1].lower()
-
-    # Variable that stores the size of the file in bytes
-    # To convert bytes to MB, times by 1,000,000
-    size_file = os.path.getsize(file)
-
     # Checks to see whether the file exists in the base directory 
     if os.path.exists(check_file) == True:
         print("File exists in the base directory")
+
+        # Variable that stores the extension of the file name inputted
+        ext_file = os.path.splitext(file)[-1].lower()
+
+        # Variable that stores the size of the file in bytes
+        # To convert bytes to MB, times by 1,000,000
+        size_file = os.path.getsize(file)
 
         # Input validation 1: Check for matching file names
         for files in os.listdir("Submitted_Assignments_Py"):
