@@ -210,3 +210,5 @@
 2026-02-23 13:54:55 Attempt 3: failed to login to program
 2026-02-23 13:54:55 1771854895
 2026-02-23 13:54:55 User failed to login within three attempts
+2026-02-23 14:24:56 User successfully logged in to the program
+2026-02-23 14:25:06 Failed to submit assignment: file is over 5MB
