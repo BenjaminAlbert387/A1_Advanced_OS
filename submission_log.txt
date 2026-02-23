@@ -224,3 +224,12 @@
 2026-02-23 14:49:18 User successfully logged in to the program
 2026-02-23 14:49:32 Failed to exit out of the program: invalid choice
 2026-02-23 14:49:34 User successfully exited out of the program
+2026-02-23 15:12:51 User successfully logged in to the program
+2026-02-23 15:14:03 Assignment test.txt for 1001: Status: fail (file type unsupported)
+2026-02-23 15:14:15 Assignment test.pdf for 1002: Status: fail (file matches content)
+2026-02-23 15:14:39 User successfully exited out of the program
+2026-02-23 15:17:09 User successfully logged in to the program
+2026-02-23 15:17:30 Assignment test2.pdf for 1003: Status: fail (file name matches)
+2026-02-23 15:22:00 User successfully exited out of the program
+2026-02-23 15:22:33 User successfully logged in to the program
+2026-02-23 15:22:48 Assignment test3.pdf for 1004: Status: success
