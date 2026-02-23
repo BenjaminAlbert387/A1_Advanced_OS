@@ -50,6 +50,7 @@ view_pending_jobs() {
         content=$(cat "$FILE_NAME") 
         echo "$content"
         log_event "Viewed pending jobs list" 
+        return
 
     else 
         # Output warning to the user
@@ -58,6 +59,7 @@ view_pending_jobs() {
         # Creates a new job queue file if the user deletes the previous one while the program is running 
         touch "$JOB_QUEUE"
         log_event "Job queue file made after attempt to check a non existing file"
+        return
     fi
 }
 
@@ -72,21 +74,25 @@ submit_job_request() {
     if [[ -z "$id" ]] || [[ -z "$name" ]] || [[ -z "$time" ]] || [[ -z "$priority" ]]; then
     echo "Error: One or more options are blank. Request denied!"
     log_event "Failed to submit job request: user submitted a blank option"
+    return
 
     # Input validation 2: Check for integers
     elif [[ -n ${time//[0-9]/} ]] || [[ -n ${priority//[0-9]/} ]] || [[ -n ${id//[0-9]/} ]]; then
     echo "Error: One or more options wanted an integer you didn't give. Request denied!"
     log_event "Failed to submit job request: user submitted letters instead of integers"
+    return
 
     # Input validation 3: Check priority range is between 1 to 10
     elif [ "$priority" -gt 10 ] || [ "$priority" -lt 1 ] ; then
     echo "Error: Priority must be between 1 to 10. Request denied!"
     log_event "Failed to submit job request: user submitted invalid priority"
+    return
 
     # Input validation 4: Check student ID is over 1000
     elif [ "$id" -lt 1001 ] ; then
     echo "Error: Student ID must be a number over 1000. Request denied!"
     log_event "Failed to submit job request: user submitted invalid student ID"
+    return
 
     else
     # Output a success message
@@ -161,6 +167,7 @@ process_job_queue() {
     # Output error message if student ID is not present, or if the job queue is empty
     echo "Error: Your student ID is not found on the job queue"
     log_event "Failed to process jobs: student ID not found on job_queue.txt"
+    return
 
     fi
 
@@ -174,12 +181,15 @@ view_completed_jobs() {
         content=$(cat "$FILE_NAME") 
         echo "$content"
         log_event "Read completed jobs file" 
+        return
+
     else 
         echo "Warning: Completed jobs file not found. It will be created now."
 
         # Creates a new completed jobs file if the user deletes the previous one
         touch "$COMPLETED_JOBS"
         log_event "Completed jobs file made after attempt to check a non existing file"
+        return
     fi
 }
 
@@ -191,12 +201,14 @@ view_scheduler_log() {
         content=$(cat "$FILE_NAME") 
         echo "$content"
         log_event "Read scheduler log file" 
+        return
     else 
         echo "Warning: Scheduler log file not found. It will be created now."
 
         # Creates a new log file if the user deletes the previous one while the program is running 
         touch "$LOG_FILE"
         log_event "Scheduler log file made after attempt to check a non existing file"
+        return
     fi
 }
 

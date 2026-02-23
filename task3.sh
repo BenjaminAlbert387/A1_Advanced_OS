@@ -213,6 +213,7 @@ submit_assignment() {
                 echo "Error: File has exact matching content found!"
                 log_event "Submit assignment "$file" for "$id": Status: fail (exact match found)"
                 break
+                return
             fi
         done
 
