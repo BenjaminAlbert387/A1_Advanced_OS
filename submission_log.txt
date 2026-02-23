@@ -185,3 +185,28 @@
 2026-02-23 12:40:25 User cancelled exit out of the program
 2026-02-23 13:03:42 User successfully logged in to the program
 2026-02-23 13:12:11 User successfully exited out of the program
+2026-02-23 13:43:53 Attempt 1: failed to login to program
+2026-02-23 13:43:53 1771854233
+2026-02-23 13:43:55 Attempt 2: failed to login to program
+2026-02-23 13:43:55 1771854235
+2026-02-23 13:43:56 Attempt 3: failed to login to program
+2026-02-23 13:43:56 1771854236
+2026-02-23 13:43:56 User attempted to login three times within 60 seconds
+2026-02-23 13:44:04 Attempt 4: failed to login to program
+2026-02-23 13:44:04 1771854244
+2026-02-23 13:44:04 User failed to login within three attempts
+2026-02-23 13:46:21 Attempt 1: failed to login to program
+2026-02-23 13:46:21 1771854381
+2026-02-23 13:46:22 Attempt 2: failed to login to program
+2026-02-23 13:46:22 1771854382
+2026-02-23 13:46:23 Attempt 3: failed to login to program
+2026-02-23 13:46:23 1771854383
+2026-02-23 13:46:23 User attempted to login three times within 60 seconds
+2026-02-23 13:46:23 User failed to login within three attempts
+2026-02-23 13:49:37 Attempt 1: failed to login to program
+2026-02-23 13:49:37 1771854577
+2026-02-23 13:49:38 Attempt 2: failed to login to program
+2026-02-23 13:49:38 1771854578
+2026-02-23 13:54:55 Attempt 3: failed to login to program
+2026-02-23 13:54:55 1771854895
+2026-02-23 13:54:55 User failed to login within three attempts

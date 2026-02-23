@@ -40,7 +40,7 @@ def login_menu_function():
     inital_attempt = 1
     attempt_time = []
 
-    while inital_attempt <= max_attempts:
+    while inital_attempt < max_attempts:
         username = input("Enter your username, then press Enter: ")
 
         # Hides the password from being shown while entered
@@ -306,4 +306,3 @@ def menu_function():
             print("Error: Invalid input!")
 
 login_menu_function()
-menu_function()
