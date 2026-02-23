@@ -179,7 +179,7 @@ view_completed_jobs() {
 
         # Creates a new completed jobs file if the user deletes the previous one
         touch "$COMPLETED_JOBS"
-        log_event "Read completed jobs file made after attempt to check a non existing file"
+        log_event "Completed jobs file made after attempt to check a non existing file"
     fi
 }
 

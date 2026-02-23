@@ -180,7 +180,37 @@ def check_submitted_assignments_py_directory_function():
 
     else:
         print("Viewing all files in Submitted_Assignments_Py")
-        os.listdir("Submitted_Assignments_Py")
+
+        # Variable that stores the file path of Submitted_Assignments_Py
+        check_path = os.path.join(BASE_DIR, "Submitted_Assignments_Py")
+
+        # Variable that stores the contents of the Submitted_Assignments_Py directory
+        check_items = os.listdir(check_path)
+
+        # For each item in check_paths, output to the user
+        for items in check_items:
+            print(items)
+
+def exit_function():
+    while True:
+        try:
+            print("Are you sure you want to exit?")
+            exit_choice = input("Type Y and press Enter to confirm. Type N and press Enter to cancel")
+
+            if exit_choice == "Y" or "y":
+                sys.exit("Exiting program now. Goodbye!")
+
+            elif exit_choice == "N" or "n":
+                print("Cancelled exit. You will be returned to the main menu.")
+                log_event("User cancelled exit out of the program")
+
+            else:
+                print("Error: not a valid choice")
+                log_event("Failed to exit out of the program: invalid choice")
+        
+        except ValueError:
+            print("Error: Invalid input!")
+            log_event("Failed to exit out of the program: invalid input")
 
 def menu_function():
     while True:
@@ -207,6 +237,10 @@ def menu_function():
 
             elif choice == 4:
                 check_submitted_assignments_py_directory_function()
+
+            elif choice == 5:
+                exit_function()
+
             else:
                 print("Error: not a valid menu choice")
             
