@@ -170,11 +170,11 @@ submit_assignment() {
     # Checks to see whether the file exists in the directory
     CHECK_FILE="$BASE_DIR/$file"
 
-    # Gets the size of the file in MB
-    size=$(du -sm "$CHECK_FILE" | cut -f 1)
-
     if [ -f "$CHECK_FILE" ]; then
         echo "Success: File exists in the base directory."
+
+        # Gets the size of the file in MB
+        size=$(du -sm "$CHECK_FILE" | cut -f 1)
 
         # Input validation 1: Check for matching file names
         DUPLICATE_FILE="$BASE_DIR/Submitted_Assignments/$file"
