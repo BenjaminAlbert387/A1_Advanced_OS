@@ -212,7 +212,6 @@ submit_assignment() {
             if [[ "$remove_whitespace_check" == "$remove_whitespace_all" ]]; then
                 echo "Error: File has exact matching content found!"
                 log_event "Submit assignment "$file" for "$id": Status: fail (exact match found)"
-                break
                 return
             fi
         done
