@@ -195,12 +195,12 @@ def exit_function():
     while True:
         try:
             print("Are you sure you want to exit?")
-            exit_choice = input("Type Y and press Enter to confirm. Type N and press Enter to cancel")
+            exit_choice = input("Type Y and press Enter to confirm. Type N and press Enter to cancel. ")
 
-            if exit_choice == "Y" or "y":
+            if exit_choice == "Y" or exit_choice == "y":
                 sys.exit("Exiting program now. Goodbye!")
 
-            elif exit_choice == "N" or "n":
+            elif exit_choice == "N" or exit_choice == "n":
                 print("Cancelled exit. You will be returned to the main menu.")
                 log_event("User cancelled exit out of the program")
 
