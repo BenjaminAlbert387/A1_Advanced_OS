@@ -179,6 +179,7 @@ view_completed_jobs() {
     # If the completed jobs file exists, then output its contents
     if [ -e "$FILE_NAME" ]; then 
         content=$(cat "$FILE_NAME") 
+        echo "Viewing all completed jobs:"
         echo "$content"
         log_event "Read completed jobs file" 
         return
