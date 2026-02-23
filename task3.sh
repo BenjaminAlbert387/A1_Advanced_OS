@@ -155,6 +155,7 @@ submit_assignment() {
     elif [[ -n ${id//[0-9]/} ]]; then
     echo "Error: student ID entered was not an integer"
     log_event "Failed to submit assignment: user submitted letters instead of integers"
+    return
 
     elif [ "$id" -lt 1001 ] ; then
     echo "Error: student ID must be a number over 1000."
@@ -180,16 +181,19 @@ submit_assignment() {
         if [ -f "$DUPLICATE_FILE" ]; then
             echo "Error: File with the same name has already been submitted"
             log_event "Submit assignment "$file" for "$id": Status: fail (file name already used)"
+            return
 
         # Input validation 2: Check for supported file types
         elif [[ $CHECK_FILE != *".pdf"* && $CHECK_FILE != *".docx"* ]]; then
             echo "Error: File type not supported"
             log_event "Submit assignment "$file" for "$id": Status: fail (file type not supported)"
+            return
 
         # Input validation 3: Check if the file is over 5MB
         elif [ "$size" -gt 5 ] ; then
             echo "Error: File is over 5MB in size!"
             log_event "Submit assignment "$file" for "$id": Status: fail (file is over 5MB)"
+            return
 
         else
             echo ""

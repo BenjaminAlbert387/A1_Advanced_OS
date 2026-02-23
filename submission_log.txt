@@ -1,6 +1,4 @@
-
-2026 -02 -23 16:13:25 Login to program successful
- 2026 -02 -23 16:14:10 Login to program successful
- 2026 -02 -23 16:14:35 Submit assignment test1.pdf for 1005: Status: fail (file name already used)
- 2026 -02 -23 16:14:37 Submit assignment test1.pdf for student 1005: Status: pass
+2026 -02 -23 16:16:37 Login to program successful
+ 2026 -02 -23 16:16:49 Submit assignment test1.pdf for 1005: Status: fail (file name already used)
+ 2026 -02 -23 16:16:49 Submit assignment test1.pdf for 1005: Status: fail (exact match found)
  

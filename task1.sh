@@ -88,10 +88,12 @@ terminate_process() {
     # If the user is systemd, then prevent terminating
     if [[ "$user" == systemd* ]]; then
         echo "Error: Cannot terminate a systemd process!"
+        return
 
     # If the user is root, then prevent terminating
     elif [[ "$user" == root ]]; then
         echo "Error: Cannot terminate a root process!"
+        return
 
     else
     echo "Are you sure you want to terminate this process?"
@@ -150,10 +152,11 @@ create_archive_logs_directory() {
     if [ -d "$CHECK_DIRECTORY" ]; then
         echo "Error: $CHECK_DIRECTORY already exists!"
         log_event "Failed to make ArchiveLogs directory: already exists"
+        return
 
     else
-    mkdir -v ArchiveLogs
-    log_event "Successfully created ArchiveLogs directory"
+        mkdir -v ArchiveLogs
+        log_event "Successfully created ArchiveLogs directory"
     fi
 }
 
@@ -174,6 +177,7 @@ detect_large_log_file() {
     if [ "$size" -gt 50 ] ; then
         echo "Warning: Log files over 50MB detected in main directory!"
         log_event "Ran large log file check: Log files over 50MB detected"
+        return
 
     else
         echo "No log files over 50MB detected in main directory"
@@ -208,6 +212,7 @@ compress_text_file() {
             echo "Error: ArchiveLogs directory does not exist!"
             echo "Unable to move the .zip file. It will be stored in the base directory instead."
             log_event "Failed to move .zip file: could not find ArchiveLogs directory"
+            return
 
         else
         mv "$ZIP_FILE" "$BASE_DIR/ArchiveLogs"
@@ -231,6 +236,7 @@ check_archive_logs_directory() {
     if [ ! -d "$CHECK_DIRECTORY" ]; then
         echo "Error: ArchiveLogs directory does not exist!"
         log_event "Failed to check directory: could not find ArchiveLogs directory"
+        return
 
     else
     # Get the size of the ArchiveLogs directory in MB
@@ -243,6 +249,7 @@ check_archive_logs_directory() {
     if [ "$size" -gt 1000 ] ; then
         echo "Warning: ArchiveLogs directory is over 1GB in size!"
         log_event "ArchiveLogs directory was checked: over 1GB in size"
+        return
     
     else
         echo "ArchiveLogs is under 1GB in size"
