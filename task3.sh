@@ -229,6 +229,7 @@ submit_assignment() {
     else
         echo "Error: File does not exist in the base directory!"
         log_event "Failed to submit assignment: could not find in directory"
+        return
     fi
     # fi below ends the student ID validation for loop
     fi
@@ -249,14 +250,18 @@ check_submitted_files() {
         if [ -f "$DUPLICATE_FILE" ]; then
             echo "File with the same name has already been submitted. Rename it."
             log_event "Checked submitted files: one or more files matched names"
+            return
+        
         else
             echo "No files previously submitted had a matching name."
             log_event "Checked submitted files: no files matched names"
+            return
         fi
 
     else
         echo "Error: File does not exist!"
         log_event "Failed to check file: could not find in directory"
+        return
     fi
     }
 
@@ -269,11 +274,13 @@ check_submitted_assignments_directory() {
     if [ ! -d "$CHECK_DIRECTORY" ]; then
         echo "Error: Submitted_Assignments directory does not exist!"
         log_event "Failed to check directory: could not find Submitted_Assignments directory"
+        return
 
     else
         echo "All currently submitted files:"
         ls $CHECK_DIRECTORY
         log_event "Successfully checked Submitted_Assignments directory"
+        return
     fi
 }
 
