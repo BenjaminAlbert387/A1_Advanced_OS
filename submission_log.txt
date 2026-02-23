@@ -212,3 +212,15 @@
 2026-02-23 13:54:55 User failed to login within three attempts
 2026-02-23 14:24:56 User successfully logged in to the program
 2026-02-23 14:25:06 Failed to submit assignment: file is over 5MB
+2026-02-23 14:45:20 User successfully exited out of the program
+2026-02-23 14:45:27 User successfully logged in to the program
+2026-02-23 14:45:39 Submission uploaded successfully
+2026-02-23 14:46:12 User successfully exited out of the program
+2026-02-23 14:46:19 User successfully logged in to the program
+2026-02-23 14:46:27 Failed to submit assignment: file name already used
+2026-02-23 14:46:31 User successfully exited out of the program
+2026-02-23 14:47:02 User successfully logged in to the program
+2026-02-23 14:49:00 User successfully exited out of the program
+2026-02-23 14:49:18 User successfully logged in to the program
+2026-02-23 14:49:32 Failed to exit out of the program: invalid choice
+2026-02-23 14:49:34 User successfully exited out of the program

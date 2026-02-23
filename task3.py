@@ -126,6 +126,23 @@ def submit_assignment_function():
         log_event("Failed to submit assignment: missing Submitted_Assignments_Py directory")
         menu_function()
 
+    # User inputs their student ID
+    while True:
+        try:
+            student_id = int(input("Type your student ID, a number over 1000, then press Enter: "))
+            if student_id > 1000:
+                print("Valid student ID")
+                break
+
+            else:
+                print("Error: student ID not found")
+                log_event("Failed to submit assignment: user submitted invalid student ID")
+                menu_function()
+
+        except ValueError:
+            print("Error: invalid input")
+            menu_function()
+
     # User inputs the file name
     file = input("Type the file name you want to upload, including the .pdf part, and press Enter: ")
 
