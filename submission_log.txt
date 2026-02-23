@@ -179,4 +179,9 @@
  2026 -02 -21 19:55:03 1771703703
  2026 -02 -21 19:58:13 Attempt 3: failed to login to program
  2026 -02 -21 19:58:13 1771703893
- 
+ 2026-02-23 12:39:47 Failed to exit out of the program: invalid choice
+2026-02-23 12:39:50 User cancelled exit out of the program
+2026-02-23 12:40:24 Failed to exit out of the program: invalid choice
+2026-02-23 12:40:25 User cancelled exit out of the program
+2026-02-23 13:03:42 User successfully logged in to the program
+2026-02-23 13:12:11 User successfully exited out of the program

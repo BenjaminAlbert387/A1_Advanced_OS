@@ -9,6 +9,7 @@ import fnmatch
 import filecmp
 import time
 import shutil
+import getpass
 
 # Get the directory where this script is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -34,8 +35,62 @@ def log_event(msg):
     with open("submission_log.txt", "a", encoding="utf-8") as f: 
         f.write(f"{timestamp} {msg}\n")
 
-def create_submitted_assignments_py_directory_function():
+def login_menu_function():
+    max_attempts = 4
+    inital_attempt = 1
+    attempt_time = []
 
+    while inital_attempt <= max_attempts:
+        username = input("Enter your username, then press Enter: ")
+
+        # Hides the password from being shown while entered
+        password = getpass.getpass("Enter your password, then press Enter: ")
+
+        if username == "cccu" and password == "cccu1!":
+            print("Login successful!")
+            log_event("User successfully logged in to the program")
+            menu_function()
+
+        else:
+            print("Unsuccessful login attempt")
+            log_event(f"Attempt {inital_attempt}: failed to login to program")
+            print(f"Attempt {inital_attempt} of 3 used!")
+
+            # Converts the current date and time into epoch seconds
+            epoch = int(time.time())
+
+            # Stored in the log file
+            log_event(epoch)
+
+            attempt_time.append(epoch)
+
+            # If there are three times in the attempt_time array (length is 3)
+            if len(attempt_time) == 3:
+
+                # Get the first attempt time in the array 
+                first_attempt_time = attempt_time[0]
+
+                # Get the third attempt time in the array
+                third_attempt_time = attempt_time[2]
+
+                # If the difference is 60 seconds or less
+                if third_attempt_time - first_attempt_time <= 60:
+
+                    # Print additional messages and log events
+                    print("Suspicious activity detected!")
+                    log_event("User attempted to login three times within 60 seconds")
+
+                # Clears the array
+                attempt_time = []
+
+        # Increment attempt by 1
+        inital_attempt += 1
+    
+    # Ends the program if the user reaches the maximum password attempts
+    print("You have reached the maximum attempts! The system has been locked.")
+    log_event("User failed to login within three attempts")
+
+def create_submitted_assignments_py_directory_function():
         # Specifies the directory name
         directory_name = "Submitted_Assignments_Py"
 
@@ -65,6 +120,7 @@ def create_submitted_assignments_py_directory_function():
         menu_function()
 
 def submit_assignment_function():
+    # If the Submitted_Assignments_Py directory does not exist
     if os.path.isdir("Submitted_Assignments_Py") == False:
         print("Error: Please create Submitted_Assignments_Py first!")
         log_event("Failed to submit assignment: missing Submitted_Assignments_Py directory")
@@ -156,7 +212,7 @@ def check_submitted_files_function():
     if os.path.exists(check_file) == True:
         print("File exists in the base directory")
 
-        # Input validation 1: Check for matching file names
+        # Input validation: Check for matching file names
         for files in os.listdir("Submitted_Assignments_Py"):
             if fnmatch.fnmatch(file, files):
                 print("File with the same name has already been submitted. Rename it.")
@@ -198,11 +254,13 @@ def exit_function():
             exit_choice = input("Type Y and press Enter to confirm. Type N and press Enter to cancel. ")
 
             if exit_choice == "Y" or exit_choice == "y":
+                log_event("User successfully exited out of the program")
                 sys.exit("Exiting program now. Goodbye!")
 
             elif exit_choice == "N" or exit_choice == "n":
                 print("Cancelled exit. You will be returned to the main menu.")
                 log_event("User cancelled exit out of the program")
+                menu_function()
 
             else:
                 print("Error: not a valid choice")
@@ -247,4 +305,5 @@ def menu_function():
         except ValueError:
             print("Error: Invalid input!")
 
+login_menu_function()
 menu_function()

@@ -101,6 +101,7 @@ login_menu() {
 
     # Terminates the program if the user reaches the maximum password attempts 
     echo "You have reached the maximum attempts! The system has been locked."
+    log_event "User failed to login within three attempts"
     kill $$
 }
 
