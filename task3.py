@@ -164,19 +164,19 @@ def submit_assignment_function():
         for files in os.listdir("Submitted_Assignments_Py"):
             if fnmatch.fnmatch(file, files):
                 print("Error: File with the same name has already been submitted")
-                log_event("Failed to submit assignment: file name already used")
+                log_event(f"Assignment {file} for {student_id}: Status: fail (file name matches)")
                 menu_function()
 
         # Input validation 2: Check for supported file types
         if ext_file != ".docx" and ext_file != ".pdf":
             print("Error: File type not supported")
-            log_event("Failed to submit assignment: file type not supported")
+            log_event(f"Assignment {file} for {student_id}: Status: fail (file type unsupported)")
             menu_function()
 
         # Input validation 3: Check if the file is over 5MB
         if size_file > 5 * 1000000:
             print("Error: File is over 5MB in size!")
-            log_event("Failed to submit assignment: file is over 5MB")
+            log_event(f"Assignment {file} for {student_id}: Status: fail (file size over 5MB)")
             menu_function()
 
         # Input validation 4: Check for matching file contents
@@ -190,7 +190,7 @@ def submit_assignment_function():
                 # If the file contents match any file in Submitted_Assignments_Py
                 if filecmp.cmp(check_file, full_path, shallow=False):
                     print("Error: File has exact matching content found!")
-                    print("Failed to submit assignment: exact matching content found")
+                    log_event(f"Assignment {file} for {student_id}: Status: fail (file matches content)")
                     menu_function()
 
         print(f"Uploading {file} now...")
@@ -205,7 +205,7 @@ def submit_assignment_function():
 
         # Outputs success message to the user and logs the event
         print(f"Successfully uploaded {file}!")
-        log_event("Submission uploaded successfully")
+        log_event(f"Assignment {file} for {student_id}: Status: success")
         menu_function()
 
     else:
