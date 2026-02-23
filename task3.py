@@ -143,7 +143,7 @@ def submit_assignment_function():
 def check_submitted_files_function():
     if os.path.isdir("Submitted_Assignments_Py") == False:
         print("Error: Please create Submitted_Assignments_Py first!")
-        log_event("Failed to submit assignment: missing Submitted_Assignments_Py directory")
+        log_event("Failed to check assignment: missing Submitted_Assignments_Py directory")
         menu_function()
 
     # User inputs the file name
@@ -172,6 +172,16 @@ def check_submitted_files_function():
             log_event("Failed to submit assignment: file not found in base directory")
             menu_function()
 
+def check_submitted_assignments_py_directory_function():
+    if os.path.isdir("Submitted_Assignments_Py") == False:
+        print("Error: Please create Submitted_Assignments_Py first!")
+        log_event("Failed to check directory: missing Submitted_Assignments_Py directory")
+        menu_function()
+
+    else:
+        print("Viewing all files in Submitted_Assignments_Py")
+        os.listdir("Submitted_Assignments_Py")
+
 def menu_function():
     while True:
         try:
@@ -194,6 +204,9 @@ def menu_function():
 
             elif choice == 3:
                 check_submitted_files_function()
+
+            elif choice == 4:
+                check_submitted_assignments_py_directory_function()
             else:
                 print("Error: not a valid menu choice")
             
