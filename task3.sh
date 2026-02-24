@@ -240,6 +240,16 @@ check_submitted_files() {
     echo "============================================================================================="
     read -r -p "Type the file name, including the .pdf part, and press Enter: " file
 
+    # Creates a variable that has the relative path to Submitted_Assignments
+    CHECK_DIRECTORY="$BASE_DIR/Submitted_Assignments" 
+
+    # If it does not exist, then an error message will be outputted
+    if [ ! -d "$CHECK_DIRECTORY" ]; then
+        echo "Error: Submitted_Assignments directory does not exist!"
+        log_event "Failed to check directory: could not find Submitted_Assignments directory"
+        return
+    fi
+
     # Checks to see whether the file exists in the directory
     CHECK_FILE="$BASE_DIR/$file"
     if [ -f "$CHECK_FILE" ]; then
