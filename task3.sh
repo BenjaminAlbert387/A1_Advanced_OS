@@ -145,6 +145,17 @@ create_submitted_assignments_directory() {
 
 submit_assignment() {
     echo "============================================================================================="
+    
+    # Creates a variable that has the relative path to Submitted_Assignments
+    CHECK_DIRECTORY="$BASE_DIR/Submitted_Assignments" 
+
+    # If it does not exist, then an error message will be outputted
+    if [ ! -d "$CHECK_DIRECTORY" ]; then
+        echo "Error: Submitted_Assignments directory does not exist!"
+        log_event "Failed to check directory: could not find Submitted_Assignments directory"
+        return
+    fi
+
     read -rp "Enter your student ID, which is a number over 1000, then press Enter: " id
 
     if [[ -z "$id" ]] ; then
